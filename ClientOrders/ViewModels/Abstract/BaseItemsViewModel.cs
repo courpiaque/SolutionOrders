@@ -35,9 +35,6 @@ namespace ClientOrders.ViewModels.Abstract
         #endregion
         async Task ExecuteLoadItemsCommand()
         {
-            if (IsBusy) return;
-
-            IsBusy = true;
             try
             {
                 Items.Clear();
@@ -52,10 +49,6 @@ namespace ClientOrders.ViewModels.Abstract
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
             }
         }
         public override void OnAppearing()

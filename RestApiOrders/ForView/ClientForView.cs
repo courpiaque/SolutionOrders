@@ -10,7 +10,6 @@ namespace RestApiOrders.ForView
         public string? Address { get; set; }
         public string? PhoneNumber { get; set; }
 
-        //move to copy service
         public static implicit operator Client(ClientForView cli)
             => new Client().CopyProperties(cli);
         public static implicit operator ClientForView(Client cli)

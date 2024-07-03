@@ -8,6 +8,7 @@ namespace ClientOrders.ViewModels.Items
 {
     public class NewItemViewModel : BaseNewItemViewModel<Item>
     {
+        private int id;
         private string name;
         private string description;
         private Category selectedCategory;
@@ -26,10 +27,10 @@ namespace ClientOrders.ViewModels.Items
             this.lookupService = lookupService;
         }
 
-        public override void OnAppearing()
+        public override async void OnAppearing()
         {
-            UnitOfMeasurements = lookupService.GetLookupsAsync<UnitOfMeasurement>().GetAwaiter().GetResult().ToList();
-            Categories = lookupService.GetLookupsAsync<Category>().GetAwaiter().GetResult().ToList();
+            UnitOfMeasurements = (await lookupService.GetLookupsAsync<UnitOfMeasurement>()).ToList();
+            Categories = (await lookupService.GetLookupsAsync<Category>()).ToList();
 
             base.OnAppearing();
         }
@@ -50,7 +51,13 @@ namespace ClientOrders.ViewModels.Items
             set => SetProperty(ref unitOfMeasurements, value);
         }
 
-        public string Name
+		public int Id
+		{
+			get => id;
+			set => SetProperty(ref id, value);
+		}
+
+		public string Name
         {
             get => name;
             set => SetProperty(ref name, value);
@@ -98,7 +105,7 @@ namespace ClientOrders.ViewModels.Items
         public override Item SetItem()
             => new Item()
             {
-                Id = 0,
+                Id = Id,
                 Name = Name,
                 Description = Description,
                 IdCategory = SelectedCategory.Id,

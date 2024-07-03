@@ -6,7 +6,6 @@ namespace ClientOrders.ViewModels.Abstract
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public abstract class BaseItemDetailsViewModel<T> : BaseViewModel where T : IEntity
     {
-        private int itemId;
         public ICrudService<T> DataStore { get; } = new CrudService<T>();
         public BaseItemDetailsViewModel()
         {
@@ -19,9 +18,9 @@ namespace ClientOrders.ViewModels.Abstract
         public Command DeleteCommand { get; }
         public Command UpdateCommand { get; }
 
-        public override void OnAppearing() 
+        public override async void OnAppearing() 
         {
-            _ = LoadItem(ItemId);
+            await LoadItem(ItemId);
         }
 
 		private async void OnCancel()

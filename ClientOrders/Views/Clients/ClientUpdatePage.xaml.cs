@@ -1,6 +1,8 @@
+using ClientOrders.Views.Abstract;
+
 namespace ClientOrders.Views.Clients;
 
-public partial class ClientUpdatePage : ContentPage
+public partial class ClientUpdatePage : BaseContentPage
 {
 	public ClientUpdatePage()
 	{

@@ -17,9 +17,9 @@ namespace ClientOrders.ViewModels.Abstract
         public abstract bool ValidateSave();
         public int ItemId { get; set; }
 
-        public override void OnAppearing() 
+        public override async void OnAppearing() 
         {
-            _ = LoadItem(ItemId);
+            await LoadItem(ItemId);
         }
 
 		public Command SaveCommand { get; }

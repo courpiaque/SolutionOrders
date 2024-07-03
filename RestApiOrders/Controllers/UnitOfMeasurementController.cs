@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestApiOrders.ForView;
-using RestApiOrders.Helpers;
 using RestApiOrders.Model.Context;
 
 namespace RestApiOrders.Controllers
@@ -17,17 +16,39 @@ namespace RestApiOrders.Controllers
             _context = context;
         }
 
-        // GET: api/Client
-        [HttpGet]
+		// GET: api/UnitOfMeasurement
+		[HttpGet]
         public async Task<ActionResult<IEnumerable<UnitOfMeasurementForView>>> GetUnitOfMeasurements()
         {
           if (_context.UnitOfMeasurements == null)
           {
               return NotFound();
           }
-            return (await _context.UnitOfMeasurement.ToListAsync())
+            return (await _context.UnitOfMeasurements.ToListAsync())
                 .Select(cli => (UnitOfMeasurementForView)cli)
                 .ToList();
         }
-    }
+
+		// POST: api/UnitOfMeasurement
+		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+		[HttpPost]
+		public async Task<ActionResult<UnitOfMeasurementForView>> PostClient(UnitOfMeasurementForView unit)
+		{
+			if (_context.UnitOfMeasurements == null)
+			{
+				return Problem("Entity set 'CompanyContext.UnitOfMeasurements'  is null.");
+			}
+			_context.UnitOfMeasurements.Add(unit);
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateException)
+			{
+				throw;
+			}
+
+			return Ok(unit);
+		}
+	}
 }

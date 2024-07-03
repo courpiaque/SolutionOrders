@@ -13,6 +13,7 @@ namespace ClientOrders.ViewModels.Orders
             DeliveryDate = DateTime.Now.Date;
         }
         #region Fields
+        private int id;
         private DateTime? dataOrder;
         private string notes;
         private DateTime? deliveryDate;
@@ -20,9 +21,15 @@ namespace ClientOrders.ViewModels.Orders
         private Worker selectedWorker;
         private List<Client> clients = new(); //todo
         private List<Worker> workers = new();
-        #endregion
-        #region Properties
-        public DateTime? DataOrder
+		#endregion
+		#region Properties
+
+		public int Id
+		{
+			get => id;
+			set => SetProperty(ref id, value);
+		}
+		public DateTime? DataOrder
         {
             get => dataOrder;
             set => SetProperty(ref dataOrder, value);
@@ -59,16 +66,20 @@ namespace ClientOrders.ViewModels.Orders
         }
         #endregion
 
-        public override void OnAppearing()
+        public override async void OnAppearing()
         {
-            Workers = new CrudService<Worker>().GetItemsAsync().GetAwaiter().GetResult().ToList();
-            Clients = new CrudService<Client>().GetItemsAsync().GetAwaiter().GetResult().ToList();
+            var workerService = new CrudService<Worker>();
+            var clientsService = new CrudService<Client>();
+
+			Workers = (await workerService.GetItemsAsync()).ToList();
+            Clients = (await clientsService.GetItemsAsync()).ToList();
 
             base.OnAppearing();
         }
         public override Order SetItem()
             => new Order
             {
+                Id = Id,
                 IdClient = selectedClient.Id,
                 IdWorker = selectedWorker.Id,
             }.CopyProperties(this);

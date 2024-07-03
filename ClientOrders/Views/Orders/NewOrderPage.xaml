@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<base:BaseContentPage
     x:Class="ClientOrders.Views.Orders.NewOrderPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:ClientOrders.Views.Abstract"
     xmlns:vm="clr-namespace:ClientOrders.ViewModels.Orders"
     Title="Add Order">
     <ContentPage.BindingContext>
@@ -12,6 +13,8 @@
         <StackLayout>
             <Frame>
                 <StackLayout Style="{x:StaticResource FormStack}">
+                    <Label FontSize="Medium" Text="Identifier" />
+                    <Entry FontSize="Medium" Text="{Binding Id, Mode=TwoWay}" />
                     <Label FontSize="Medium" Text="Date Order" />
                     <DatePicker Date="{Binding DataOrder, Mode=TwoWay}" FontSize="Medium" />
                     <Picker
@@ -42,4 +45,4 @@
             </Frame>
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</base:BaseContentPage>

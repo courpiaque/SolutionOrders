@@ -60,6 +60,8 @@ namespace ClientOrders.ViewModels.Clients
             }.CopyProperties(this);
 
         public override bool ValidateSave()
-            => ItemId > 0 && !string.IsNullOrWhiteSpace(Name);
+            => !string.IsNullOrWhiteSpace(Name) 
+            && !string.IsNullOrWhiteSpace(Address)
+            && !string.IsNullOrWhiteSpace(PhoneNumber);
     }
 }

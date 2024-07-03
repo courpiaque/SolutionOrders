@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestApiOrders.ForView;
-using RestApiOrders.Helpers;
 using RestApiOrders.Model.Context;
 
 namespace RestApiOrders.Controllers
@@ -29,5 +28,27 @@ namespace RestApiOrders.Controllers
                 .Select(cli => (CategoryForView)cli)
                 .ToList();
         }
-    }
+
+		// POST: api/Category
+		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+		[HttpPost]
+		public async Task<ActionResult<CategoryForView>> PostClient(CategoryForView category)
+		{
+			if (_context.Categories == null)
+			{
+				return Problem("Entity set 'CompanyContext.Categories' is null.");
+			}
+			_context.Categories.Add(category);
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateException)
+			{
+				throw;
+			}
+
+			return Ok(category);
+		}
+	}
 }

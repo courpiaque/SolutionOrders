@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<base:BaseContentPage
     x:Class="ClientOrders.Views.Items.ItemDetailPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:base="clr-namespace:ClientOrders.Views.Abstract"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:ClientOrders.ViewModels.Items"
     Title="Item details">
@@ -9,9 +10,28 @@
         <vm:ItemDetailViewModel />
     </ContentPage.BindingContext>
     <StackLayout Style="{x:StaticResource FormStack}">
-        <Label FontSize="Medium" Text="Text:" />
-        <Label FontSize="Small" Text="{Binding Name}" />
+        <Label FontSize="Medium" Text="Identifier" />
+        <Label FontSize="Medium" Text="{Binding Id}" />
+        <Label FontSize="Medium" Text="Name" />
+        <Label FontSize="Medium" Text="{Binding Name}" />
         <Label FontSize="Medium" Text="Description" />
-        <Label FontSize="Small" Text="{Binding Description}" />
+        <Label
+            Margin="0"
+            FontSize="Medium"
+            Text="{Binding Description}" />
+        <Label FontSize="Medium" Text="Category" />
+        <Label FontSize="Medium" Text="{x:Binding SelectedCategory}" />
+        <Label FontSize="Medium" Text="Price" />
+        <Label FontSize="Medium" Text="{Binding Price}" />
+        <Label FontSize="Medium" Text="Quantity" />
+        <Label FontSize="Medium" Text="{Binding Quantity}" />
+        <Image
+            HeightRequest="50"
+            Source="{x:Binding SelectedPhoto}"
+            WidthRequest="50" />
+        <Label FontSize="Medium" Text="Unit of measurement" />
+        <Label FontSize="Medium" Text="{Binding SelectedUnitOfMeasurement}" />
+        <Label FontSize="Medium" Text="Code" />
+        <Label FontSize="Medium" Text="{Binding Code}" />
     </StackLayout>
-</ContentPage>
+</base:BaseContentPage>

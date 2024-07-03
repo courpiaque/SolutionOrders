@@ -13,9 +13,6 @@
         <ToolbarItem Command="{Binding AddItemCommand}" Text="Add" />
     </ContentPage.ToolbarItems>
     <ListView
-        IsRefreshing="{Binding IsBusy}"
-        IsPullToRefreshEnabled="True"
-        RefreshCommand="{Binding LoadItemsCommand}"
         x:Name="ItemsListView"
         ItemsSource="{Binding Items}"
         SelectionMode="None">
