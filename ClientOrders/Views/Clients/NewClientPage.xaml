@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ClientOrders.Views.Clients.NewClientPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ClientOrders.ViewModels.Clients"
+    Title="Add Client">
+    <ContentPage.BindingContext>
+        <vm:NewClientViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame>
+                <StackLayout Style="{x:StaticResource FormStack}">
+                    <Label FontSize="Medium" Text="Name" />
+                    <Editor FontSize="Medium" Text="{Binding Name, Mode=TwoWay}" />
+                    <Label FontSize="Medium" Text="Adres" />
+                    <Editor FontSize="Medium" Text="{Binding Address, Mode=TwoWay}" />
+                    <Label FontSize="Medium" Text="PhoneNumber" />
+                    <Editor FontSize="Medium" Text="{Binding PhoneNumber, Mode=TwoWay}" />
+                    <StackLayout Style="{x:StaticResource SaveStack}">
+                        <Button
+                            Command="{Binding SaveCommand}"
+                            HorizontalOptions="Center"
+                            Text="Save" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

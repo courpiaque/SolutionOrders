@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ClientOrders.Views.Items.NewItemPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ClientOrders.ViewModels.Items"
+    Title="Add Item">
+    <ContentPage.BindingContext>
+        <vm:NewItemViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Frame>
+                    <StackLayout Style="{x:StaticResource FormStack}">
+                        <Label FontSize="Medium" Text="Name" />
+                        <Entry FontSize="Medium" Text="{Binding Name, Mode=TwoWay}" />
+                        <Label FontSize="Medium" Text="Description" />
+                        <Editor
+                            Margin="0"
+                            AutoSize="TextChanges"
+                            FontSize="Medium"
+                            Text="{Binding Description, Mode=TwoWay}" />
+                        <Label FontSize="Medium" Text="Category" />
+                        <Entry FontSize="Medium" Text="{Binding Category, Mode=TwoWay}" />
+                        <Label FontSize="Medium" Text="Price" />
+                        <Entry FontSize="Medium" Text="{Binding Price, Mode=TwoWay}" />
+                        <Label FontSize="Medium" Text="Quantity" />
+                        <Entry FontSize="Medium" Text="{Binding Quantity, Mode=TwoWay}" />
+                        <Label FontSize="Medium" Text="Foto" />
+                        <Entry FontSize="Medium" Text="{Binding FotoUrl, Mode=TwoWay}" />
+                        <Label FontSize="Medium" Text="Unit of measurement" />
+                        <Entry FontSize="Medium" Text="{Binding UnitOfMeasurement, Mode=TwoWay}" />
+                        <Label FontSize="Medium" Text="Code" />
+                        <Entry FontSize="Medium" Text="{Binding Code, Mode=TwoWay}" />
+                        <StackLayout Style="{x:StaticResource SaveStack}">
+                            <Button
+                                Command="{Binding SaveCommand}"
+                                HorizontalOptions="Center"
+                                Text="Save" />
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

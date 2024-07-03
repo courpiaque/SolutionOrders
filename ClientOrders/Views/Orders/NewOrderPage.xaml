@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ClientOrders.Views.Orders.NewOrderPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ClientOrders.ViewModels.Orders"
+    Title="Add Order">
+    <ContentPage.BindingContext>
+        <vm:NewOrderViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame>
+                <StackLayout Style="{x:StaticResource FormStack}">
+                    <Label FontSize="Medium" Text="Date Order" />
+                    <DatePicker Date="{Binding DataOrder, Mode=TwoWay}" FontSize="Medium" />
+                    <Picker
+                        Title="Select Client"
+                        Margin="0"
+                        FontSize="Medium"
+                        ItemDisplayBinding="{Binding Name}"
+                        ItemsSource="{Binding Clients}"
+                        SelectedItem="{Binding SelectedClient}" />
+                    <Picker
+                        Title="Select worker"
+                        Margin="0"
+                        FontSize="Medium"
+                        ItemDisplayBinding="{Binding Login}"
+                        ItemsSource="{Binding Workers}"
+                        SelectedItem="{Binding SelectedWorker}" />
+                    <Label FontSize="Medium" Text="Notes" />
+                    <Entry FontSize="Medium" Text="{Binding Notes, Mode=TwoWay}" />
+                    <Label FontSize="Medium" Text="Delivery Date" />
+                    <DatePicker Date="{Binding DeliveryDate, Mode=TwoWay}" FontSize="Medium" />
+                    <StackLayout Style="{x:StaticResource SaveStack}">
+                        <Button
+                            Command="{Binding SaveCommand}"
+                            HorizontalOptions="Center"
+                            Text="Save" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

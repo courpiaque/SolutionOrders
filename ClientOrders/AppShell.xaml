@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ClientOrders.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:clients="clr-namespace:ClientOrders.Views.Clients"
+    xmlns:items="clr-namespace:ClientOrders.Views.Items"
+    xmlns:orders="clr-namespace:ClientOrders.Views.Orders"
+    xmlns:workers="clr-namespace:ClientOrders.Views.Workers"
+    Title="Client Orders">
+
+    <TabBar>
+
+        <Tab Title="Items" Icon="items.png">
+            <ShellContent ContentTemplate="{DataTemplate items:ItemsPage}" Route="ItemsPage" />
+        </Tab>
+
+        <Tab Title="Clients" Icon="clients.png">
+            <ShellContent ContentTemplate="{DataTemplate clients:ClientsPage}" Route="ClientsPage" />
+        </Tab>
+
+        <Tab Title="Orders" Icon="orders.png">
+            <ShellContent ContentTemplate="{DataTemplate orders:OrderPage}" Route="OrderPage" />
+        </Tab>
+
+        <Tab Title="Workers" Icon="workers.png">
+            <ShellContent ContentTemplate="{DataTemplate workers:WorkersPage}" Route="WorkersPage" />
+        </Tab>
+
+    </TabBar>
+
+</Shell>
+

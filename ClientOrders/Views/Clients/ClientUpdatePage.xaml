@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ClientOrders.Views.Clients.ClientUpdatePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ClientOrders.ViewModels.Clients"
+    Title="Update client">
+    <ContentPage.BindingContext>
+        <vm:ClientUpdateViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="15" Spacing="3">
+            <Label FontSize="Medium" Text="Id" />
+            <Label FontSize="Medium" Text="{Binding Id, Mode=TwoWay}" />
+            <Label FontSize="Medium" Text="Name" />
+            <Editor FontSize="Medium" Text="{Binding Name, Mode=TwoWay}" />
+            <Label FontSize="Medium" Text="Adres" />
+            <Editor FontSize="Medium" Text="{Binding Address, Mode=TwoWay}" />
+            <Label FontSize="Medium" Text="PhoneNumber" />
+            <Editor FontSize="Medium" Text="{Binding PhoneNumber, Mode=TwoWay}" />
+            <StackLayout Orientation="Horizontal">
+                <Button
+                    Command="{Binding CancelCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Anuluj" />
+                <Button
+                    Command="{Binding SaveCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Zapisz" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ClientOrders.Views.Clients.ClientDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ClientOrders.ViewModels.Clients"
+    Title="Client details">
+    <ContentPage.BindingContext>
+        <vm:ClientDetailsViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="15" Spacing="3">
+            <Label FontSize="Medium" Text="Id" />
+            <Label FontSize="Medium" Text="{Binding Id}" />
+            <Label FontSize="Medium" Text="Name" />
+            <Label FontSize="Medium" Text="{Binding Name}" />
+            <Label FontSize="Medium" Text="Adres" />
+            <Label FontSize="Medium" Text="{Binding Address}" />
+            <Label FontSize="Medium" Text="PhoneNumber" />
+            <Label FontSize="Medium" Text="{Binding PhoneNumber}" />
+            <Button
+                Command="{Binding UpdateCommand}"
+                HorizontalOptions="FillAndExpand"
+                Text="Edytuj" />
+            <Button
+                Command="{Binding DeleteCommand}"
+                HorizontalOptions="FillAndExpand"
+                Text="Usuń" />
+            <Button
+                Command="{Binding CancelCommand}"
+                HorizontalOptions="FillAndExpand"
+                Text="Anuluj" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
