@@ -1,0 +1,12 @@
+using RestApiOrders.Helpers;
+using RestApiOrders.Model;
+
+namespace RestApiOrders.ForView
+{
+    public class UnitOfMeasurementForView
+    {
+        public int IdUnitOfMeasurement { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+    }
+}

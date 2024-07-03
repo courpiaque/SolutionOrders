@@ -8,10 +8,10 @@
     <ContentPage.BindingContext>
         <vm:ItemDetailViewModel />
     </ContentPage.BindingContext>
-    <StackLayout Padding="15" Spacing="20">
+    <StackLayout Style="{x:StaticResource FormStack}">
         <Label FontSize="Medium" Text="Text:" />
         <Label FontSize="Small" Text="{Binding Name}" />
-        <Label FontSize="Medium" Text="Description:" />
+        <Label FontSize="Medium" Text="Description" />
         <Label FontSize="Small" Text="{Binding Description}" />
     </StackLayout>
 </ContentPage>

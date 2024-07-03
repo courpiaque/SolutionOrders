@@ -4,10 +4,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:ClientOrders.ViewModels.Items"
-    Title="Add Item">
-    <ContentPage.BindingContext>
-        <vm:NewItemViewModel />
-    </ContentPage.BindingContext>
+    xmlns:constant="clr-namespace:ClientOrders.Constants"
+    Title="Add Item"
+    x:DataType="vm:NewItemViewModel">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
@@ -21,16 +20,31 @@
                             AutoSize="TextChanges"
                             FontSize="Medium"
                             Text="{Binding Description, Mode=TwoWay}" />
-                        <Label FontSize="Medium" Text="Category" />
-                        <Entry FontSize="Medium" Text="{Binding Category, Mode=TwoWay}" />
+                        <Picker
+                            Title="Category"
+                            Margin="0"
+                            FontSize="Medium"
+                            ItemDisplayBinding="{Binding Name}"
+                            ItemsSource="{Binding Categories}"
+                            SelectedItem="{Binding SelectedCategory}" />
                         <Label FontSize="Medium" Text="Price" />
                         <Entry FontSize="Medium" Text="{Binding Price, Mode=TwoWay}" />
                         <Label FontSize="Medium" Text="Quantity" />
                         <Entry FontSize="Medium" Text="{Binding Quantity, Mode=TwoWay}" />
-                        <Label FontSize="Medium" Text="Foto" />
-                        <Entry FontSize="Medium" Text="{Binding FotoUrl, Mode=TwoWay}" />
-                        <Label FontSize="Medium" Text="Unit of measurement" />
-                        <Entry FontSize="Medium" Text="{Binding UnitOfMeasurement, Mode=TwoWay}" />
+                        <Picker
+                            Title="Photo"
+                            Margin="0"
+                            FontSize="Medium"
+                            ItemsSource="{x:Static constant:Constants.Photos}"
+                            SelectedItem="{Binding SelectedPhoto}" />
+                        <Image Source="{x:Binding SelectedPhoto}" WidthRequest="50" HeightRequest="50"/>
+                        <Picker
+                            Title="Unit of measurement"
+                            Margin="0"
+                            FontSize="Medium"
+                            ItemDisplayBinding="{Binding Name}"
+                            ItemsSource="{Binding UnitOfMeasurements}"
+                            SelectedItem="{Binding SelectedUnitOfMeasurement}" />
                         <Label FontSize="Medium" Text="Code" />
                         <Entry FontSize="Medium" Text="{Binding Code, Mode=TwoWay}" />
                         <StackLayout Style="{x:StaticResource SaveStack}">

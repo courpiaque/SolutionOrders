@@ -1,0 +1,32 @@
+using ClientOrders.Models.Abstract;
+using ClientOrders.Services.Abstract;
+using System.Net.Http.Json;
+
+namespace ClientOrders.Services
+{
+    public class LookupService : ILookupService
+    {
+        public virtual async Task<IEnumerable<T>> GetLookupsAsync<T>(bool forceRefresh = false) where T : ILookup
+        {
+            using var client = CreateHttpClient();
+
+			try
+			{
+				var entities = await client.GetFromJsonAsync<IEnumerable<T>>($"{typeof(T).Name}");
+
+				return entities.ToList();
+			}
+			catch (Exception ex)
+			{
+				await App.Current.MainPage.DisplayAlert("Error", ex.Message, "Cancel");
+
+                return new List<T>();
+			}
+        }
+
+		private static HttpClient CreateHttpClient()
+		{
+			return new HttpClient { BaseAddress = new Uri("http://10.0.2.2:5209/api/") };
+		}
+	}
+}

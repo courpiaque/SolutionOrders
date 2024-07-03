@@ -1,5 +1,6 @@
 ﻿using ClientOrders.Helpers;
 using ClientOrders.Models;
+using ClientOrders.Services.Abstract;
 using ClientOrders.ViewModels.Abstract;
 
 namespace ClientOrders.ViewModels.Orders
@@ -8,8 +9,6 @@ namespace ClientOrders.ViewModels.Orders
     {
         public NewOrderViewModel()
         {
-            selectedWorker = new Worker();
-            selectedClient = new Client();
             DataOrder = DateTime.Now.Date;
             DeliveryDate = DateTime.Now.Date;
         }
@@ -35,10 +34,8 @@ namespace ClientOrders.ViewModels.Orders
         }
         public List<Client> Clients
         {
-            get
-            {
-                return clients;
-            }
+            get => clients;
+            set => SetProperty(ref clients, value);
         }
         public Client SelectedClient
         {
@@ -47,10 +44,8 @@ namespace ClientOrders.ViewModels.Orders
         }
         public List<Worker> Workers
         {
-            get
-            {
-                return workers;
-            }
+            get => workers;
+            set => SetProperty(ref workers, value);
         }
         public Worker SelectedWorker
         {
@@ -63,6 +58,14 @@ namespace ClientOrders.ViewModels.Orders
             set => SetProperty(ref deliveryDate, value);
         }
         #endregion
+
+        public override void OnAppearing()
+        {
+            Workers = new CrudService<Worker>().GetItemsAsync().GetAwaiter().GetResult().ToList();
+            Clients = new CrudService<Client>().GetItemsAsync().GetAwaiter().GetResult().ToList();
+
+            base.OnAppearing();
+        }
         public override Order SetItem()
             => new Order
             {

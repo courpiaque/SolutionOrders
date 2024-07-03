@@ -13,7 +13,7 @@
         <ToolbarItem Command="{Binding UpdateCommand}" Text="Edit" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Style="{x:StaticResource FormStack}">
             <Label FontSize="Medium" Text="Identifier" />
             <Label FontSize="Small" Text="{Binding Id}" />
             <Label FontSize="Medium" Text="Name" />

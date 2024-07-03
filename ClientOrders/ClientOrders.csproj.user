@@ -21,12 +21,5 @@
       <SubType>Designer</SubType>
     </MauiXaml>
   </ItemGroup>
-  <ItemGroup>
-    <MauiXaml Update="Views\Clients\ClientDetailPage.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="Views\Clients\ClientUpdatePage.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-  </ItemGroup>
+  <ItemGroup />
 </Project>

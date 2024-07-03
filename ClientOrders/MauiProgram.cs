@@ -1,4 +1,6 @@
-﻿using ClientOrders.ViewModels.Clients;
+﻿using ClientOrders.Services;
+using ClientOrders.Services.Abstract;
+using ClientOrders.ViewModels.Clients;
 using ClientOrders.ViewModels.Items;
 using ClientOrders.ViewModels.Orders;
 using ClientOrders.ViewModels.Workers;
@@ -17,6 +19,7 @@ namespace ClientOrders
 			var builder = MauiApp.CreateBuilder();
 			builder
 				.UseMauiApp<App>()
+				.RegisterServices()
 				.RegisterViewModels()
 				.RegisterViews()
 				.ConfigureFonts(fonts =>
@@ -30,6 +33,13 @@ namespace ClientOrders
 #endif
 
 			return builder.Build();
+		}
+
+		private static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
+		{		
+			builder.Services.AddSingleton<ILookupService, LookupService>();
+
+			return builder;
 		}
 
 		private static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)

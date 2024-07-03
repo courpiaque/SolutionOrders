@@ -12,10 +12,6 @@ namespace ClientOrders.ViewModels.Orders
         public override async Task GoToAddPage()
             => await Shell.Current.GoToAsync(nameof(NewOrderPage));
 
-        public override Task GoToDetailsPage(Order item)
-            => throw new NotImplementedException();
-
-        // public override async Task GoToDetailsPage(order client)
-        //    =>  await Shell.Current.GoToAsync($"{nameof(ClientDetailPage)}?{nameof(ClientDetailsViewModel.ItemId)}={client.IdClient}");
+        public override Task GoToDetailsPage(Order item) => Task.CompletedTask;
     }
 }

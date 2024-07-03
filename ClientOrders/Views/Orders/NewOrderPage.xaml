@@ -25,7 +25,7 @@
                         Title="Select worker"
                         Margin="0"
                         FontSize="Medium"
-                        ItemDisplayBinding="{Binding Login}"
+                        ItemDisplayBinding="{Binding LastName}"
                         ItemsSource="{Binding Workers}"
                         SelectedItem="{Binding SelectedWorker}" />
                     <Label FontSize="Medium" Text="Notes" />

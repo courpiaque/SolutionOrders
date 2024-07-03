@@ -12,17 +12,17 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding AddItemCommand}" Text="Add" />
     </ContentPage.ToolbarItems>
-    <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <ListView
-            x:Name="ItemsListView"
-            ItemsSource="{Binding Items}"
-            SelectedItem="{x:Binding SelectedItem,
-                                     Mode=TwoWay}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding Name}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </RefreshView>
+    <ListView
+        IsRefreshing="{Binding IsBusy}"
+        IsPullToRefreshEnabled="True"
+        RefreshCommand="{Binding LoadItemsCommand}"
+        ItemsSource="{Binding Items}"
+        SelectedItem="{x:Binding SelectedItem,
+                                    Mode=TwoWay}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell Text="{Binding Name}" Detail="{Binding Address}" />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </base:BaseContentPage>

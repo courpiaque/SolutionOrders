@@ -12,29 +12,17 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding AddItemCommand}" Text="Add" />
     </ContentPage.ToolbarItems>
-    <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <CollectionView
-            x:Name="ItemsListView"
+    <ListView
+            IsRefreshing="{Binding IsBusy}"
+            IsPullToRefreshEnabled="True"
+            RefreshCommand="{Binding LoadItemsCommand}"
             ItemsSource="{Binding Items}"
-            SelectionMode="None">
-            <CollectionView.ItemTemplate>
+            SelectedItem="{x:Binding SelectedItem,
+                                     Mode=TwoWay}">
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10">
-                        <Label
-                            FontSize="16"
-                            LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListItemTextStyle}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="{Binding FirstName}" />
-                                    <Span Text=" " />
-                                    <Span Text="{Binding LastName}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </StackLayout>
+                    <TextCell Text="{Binding LastName}" Detail="{Binding FirstName}" />
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </RefreshView>
+            </ListView.ItemTemplate>
+        </ListView>
 </base:BaseContentPage>

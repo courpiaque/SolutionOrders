@@ -1,22 +1,55 @@
 ﻿using ClientOrders.ViewModels.Abstract;
 using ClientOrders.Models;
+using ClientOrders.Services.Abstract;
+using ClientOrders.Models.Lookups;
+using ClientOrders.Services;
 
 namespace ClientOrders.ViewModels.Items
 {
-    public class NewItemViewModel : BaseNewItemViewModel<Models.Item>
+    public class NewItemViewModel : BaseNewItemViewModel<Item>
     {
         private string name;
         private string description;
-        private string category;
+        private Category selectedCategory;
         private decimal price;
         private decimal quantity;
-        private string fotoUrl;
-        private string unitOfMeasurement;
+        private string selectedPhoto;
+        private UnitOfMeasurement selectedUnitOfMeasurement;
         private string code;
+        private List<Category> categories;
+        private List<UnitOfMeasurement> unitOfMeasurements;
+
+        private readonly ILookupService lookupService;
+
+        public NewItemViewModel(ILookupService lookupService)
+        {
+            this.lookupService = lookupService;
+        }
+
+        public override void OnAppearing()
+        {
+            UnitOfMeasurements = lookupService.GetLookupsAsync<UnitOfMeasurement>().GetAwaiter().GetResult().ToList();
+            Categories = lookupService.GetLookupsAsync<Category>().GetAwaiter().GetResult().ToList();
+
+            base.OnAppearing();
+        }
+
 
         public override bool ValidateSave()
             => !string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(description);
         
+        public List<Category> Categories
+        {
+            get => categories;
+            set => SetProperty(ref categories, value);
+        }
+
+        public List<UnitOfMeasurement> UnitOfMeasurements
+        {
+            get => unitOfMeasurements;
+            set => SetProperty(ref unitOfMeasurements, value);
+        }
+
         public string Name
         {
             get => name;
@@ -28,10 +61,10 @@ namespace ClientOrders.ViewModels.Items
             set => SetProperty(ref description, value);
         }
 
-        public string Category
+        public Category SelectedCategory
         {
-            get => category;
-            set => SetProperty(ref category, value);
+            get => selectedCategory;
+            set => SetProperty(ref selectedCategory, value);
         }
         public decimal Price
         {
@@ -44,16 +77,16 @@ namespace ClientOrders.ViewModels.Items
             get => quantity;
             set => SetProperty(ref quantity, value);
         }
-        public string FotoUrl
+        public string SelectedPhoto
         {
-            get => fotoUrl;
-            set => SetProperty(ref fotoUrl, value);
+            get => selectedPhoto;
+            set => SetProperty(ref selectedPhoto, value);
         }
 
-        public string UnitOfMeasurement
+        public UnitOfMeasurement SelectedUnitOfMeasurement
         {
-            get => unitOfMeasurement;
-            set => SetProperty(ref unitOfMeasurement, value);
+            get => selectedUnitOfMeasurement;
+            set => SetProperty(ref selectedUnitOfMeasurement, value);
         }
 
         public string Code 
@@ -68,11 +101,11 @@ namespace ClientOrders.ViewModels.Items
                 Id = 0,
                 Name = Name,
                 Description = Description,
-                CategoryData = Category, //TODO
+                IdCategory = SelectedCategory.Id,
                 Price = Price,
                 Quantity = Quantity,
-                FotoUrl = FotoUrl,
-                UnitOfMeasurementData = UnitOfMeasurement, //TODO
+                FotoUrl = SelectedPhoto,
+                IdUnitOfMeasurement = SelectedUnitOfMeasurement.Id,
                 Code = Code
             };
     }
