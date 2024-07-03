@@ -12,7 +12,7 @@ namespace RestApiOrders.Model
         }
 
         [Key]
-        public int IdItem { get; set; }
+		public int IdItem { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public int IdCategory { get; set; }

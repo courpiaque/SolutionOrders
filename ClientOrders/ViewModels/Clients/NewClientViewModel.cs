@@ -6,12 +6,19 @@ namespace ClientOrders.ViewModels.Clients
     public class NewClientViewModel : BaseNewItemViewModel<Models.Client>
     {
         #region Fields
+        private int id;
         private string name;
         private string address;
         private string phoneNumber;
-        #endregion
-        #region Properties
-        public string Name
+		#endregion
+
+		#region Properties
+		public int Id
+		{
+			get => id;
+			set => SetProperty(ref id, value);
+		}
+		public string Name
         {
             get => name;
             set => SetProperty(ref name, value);
@@ -32,6 +39,7 @@ namespace ClientOrders.ViewModels.Clients
         {
             return new Client()
             {
+                Id = Id,
                 Name = Name,
                 Address = address,
                 PhoneNumber = PhoneNumber

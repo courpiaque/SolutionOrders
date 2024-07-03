@@ -10,7 +10,6 @@ namespace ClientOrders.ViewModels.Workers
         }
         public override async Task GoToAddPage()
             => await Shell.Current.GoToAsync(nameof(NewWorkerPage));
-        public override async Task GoToDetailsPage(Models.Worker worker)
-            => await Shell.Current.GoToAsync($"{nameof(WorkerDetailPage)}?{nameof(WorkerDetailViewModel.ItemId)}={worker.Id}");
+        public override async Task GoToDetailsPage(Models.Worker worker) { return; }
     }
 }

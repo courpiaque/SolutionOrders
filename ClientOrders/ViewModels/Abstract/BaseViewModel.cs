@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace ClientOrders.ViewModels.Abstract
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged
     {
 
         bool isBusy = false;
@@ -19,6 +19,8 @@ namespace ClientOrders.ViewModels.Abstract
             get { return title; }
             set { SetProperty(ref title, value); }
         }
+
+        public abstract void OnAppearing();
 
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName] string propertyName = "",

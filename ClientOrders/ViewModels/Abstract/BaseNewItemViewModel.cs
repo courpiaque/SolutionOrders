@@ -15,11 +15,15 @@ namespace ClientOrders.ViewModels.Abstract
 
         public Command SaveCommand { get; }
 
-        public abstract bool ValidateSave();
+		public override void OnAppearing() { }
+
+		public abstract bool ValidateSave();
         public abstract T SetItem();
         private async void OnSave()
         {
-            await DataStore.AddItemAsync(SetItem());
+            var item = SetItem();
+
+            await DataStore.AddItemAsync(item);
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }

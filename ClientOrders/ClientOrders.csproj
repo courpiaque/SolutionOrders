@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-ios;net7.0-maccatalyst;</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen;net7.0-android;</TargetFrameworks> -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen;net7.0-ios;net7.0-maccatalyst;</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
 		<RootNamespace>ClientOrders</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -53,10 +53,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\Clients\ClientDetailPage.xaml">
+	  <Compile Update="Views\Clients\ClientDetailPage.xaml.cs">
+	    <DependentUpon>ClientDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Clients\ClientUpdatePage.xaml.cs">
+	    <DependentUpon>ClientUpdatePage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\Clients\ClientsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Clients\ClientsPage.xaml">
+	  <MauiXaml Update="Views\Clients\ClientDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Clients\ClientUpdatePage.xaml">
@@ -78,9 +87,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Orders\OrderPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  	  <MauiXaml Update="Views\Workers\WorkerDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Workers\WorkersPage.xaml">

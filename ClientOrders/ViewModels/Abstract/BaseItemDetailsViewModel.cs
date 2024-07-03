@@ -29,7 +29,10 @@ namespace ClientOrders.ViewModels.Abstract
         public Command CancelCommand { get; }
         public Command DeleteCommand { get; }
         public Command UpdateCommand { get; }
-        private async void OnCancel()
+
+        public override void OnAppearing() { }
+
+		private async void OnCancel()
             => await Shell.Current.GoToAsync("..");
         private async void OnDelete()
         {

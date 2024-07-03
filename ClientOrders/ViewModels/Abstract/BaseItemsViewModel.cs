@@ -17,8 +17,6 @@ namespace ClientOrders.ViewModels.Abstract
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             ItemTapped = new Command<T>(OnItemSelected);
             AddItemCommand = new Command(OnAddItem);
-
-			_ = ExecuteLoadItemsCommand();
 		}
         #region Properties
         public ObservableCollection<T> Items { get; } = new();
@@ -60,11 +58,11 @@ namespace ClientOrders.ViewModels.Abstract
                 IsBusy = false;
             }
         }
-        public void OnAppearing()
+        public override void OnAppearing()
         {
-            IsBusy = true;
-            SelectedItem = default(T);
+            _ = ExecuteLoadItemsCommand();
         }
+
         private async void OnAddItem(object obj)
             => await GoToAddPage();
 

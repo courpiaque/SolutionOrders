@@ -28,7 +28,9 @@ namespace ClientOrders.ViewModels.Abstract
                 LoadItem(value).GetAwaiter().GetResult();
             }
         }
-        public Command SaveCommand { get; }
+
+        public override void OnAppearing() { }
+		public Command SaveCommand { get; }
         public Command CancelCommand { get; }
         private async void OnCancel()
             => await Shell.Current.GoToAsync("..");

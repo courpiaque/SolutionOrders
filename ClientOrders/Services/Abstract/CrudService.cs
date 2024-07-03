@@ -130,7 +130,7 @@ namespace ClientOrders.Services.Abstract
 
 		private static HttpClient CreateHttpClient()
 		{
-			return new HttpClient { BaseAddress = new Uri("http://localhost:5209/api/") };
+			return new HttpClient { BaseAddress = new Uri("http://10.0.2.2:5209/api/") };
 		}
 	}
 }

@@ -53,12 +53,12 @@ namespace RestApiOrders.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutClient(int id, ClientForView client)
         {
-            if (id != client.Id)
+            if (id != client.IdClient)
             {
                 return BadRequest();
             }
             var cliDb = _context.Clients
-                    .FirstOrDefault(cli => client.Id == cli.IdClient)
+                    .FirstOrDefault(cli => client.IdClient == cli.IdClient)
                     .CopyProperties(client);
             _context.Entry(cliDb).State = EntityState.Modified;
 
@@ -89,7 +89,7 @@ namespace RestApiOrders.Controllers
           if (_context.Clients == null)
           {
               return Problem("Entity set 'CompanyContext.Clients'  is null.");
-          }
+          } 
             _context.Clients.Add(client);
             try
             {
@@ -97,15 +97,8 @@ namespace RestApiOrders.Controllers
             }
             catch (DbUpdateException)
             {
-                if (ClientExists(client.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+				throw;
+			}
 
             return Ok(client);
         }

@@ -33,7 +33,6 @@ namespace ClientOrders
 			Routing.RegisterRoute(nameof(NewOrderPage), typeof(NewOrderPage));
 
 			// Workers
-			Routing.RegisterRoute(nameof(WorkerDetailPage), typeof(WorkerDetailPage));
 			Routing.RegisterRoute(nameof(WorkersPage), typeof(WorkersPage));
 			Routing.RegisterRoute(nameof(NewWorkerPage), typeof(NewWorkerPage));
 		}

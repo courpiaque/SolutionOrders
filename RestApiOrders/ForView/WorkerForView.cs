@@ -9,8 +9,6 @@ namespace RestApiOrders.ForView
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public bool IsActive { get; set; }
-        public string Login { get; set; } = null!;
-        public string? Password { get; set; }
 
         //move to copy service
         public static implicit operator Worker(WorkerForView cli)

@@ -23,20 +23,8 @@ namespace RestApiOrders.Model.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Category>(entity =>
-            {
-                entity.Property(e => e.IdCategory).ValueGeneratedNever();
-            });
-
-            modelBuilder.Entity<Client>(entity =>
-            {
-                entity.Property(e => e.IdClient).ValueGeneratedNever();
-            });
-
             modelBuilder.Entity<Item>(entity =>
             {
-                entity.Property(e => e.IdItem).ValueGeneratedNever();
-
                 entity.HasOne(d => d.IdCategoryNavigation)
                     .WithMany(p => p.Items)
                     .HasForeignKey(d => d.IdCategory)
@@ -54,8 +42,6 @@ namespace RestApiOrders.Model.Context
                 entity.HasKey(e => e.IdOrder)
                     .HasName("PK__Order__C38F300946897B18");
 
-                entity.Property(e => e.IdOrder).ValueGeneratedNever();
-
                 entity.HasOne(d => d.IdClientNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.IdClient)
@@ -69,8 +55,6 @@ namespace RestApiOrders.Model.Context
 
             modelBuilder.Entity<OrderItem>(entity =>
             {
-                entity.Property(e => e.IdOrderItem).ValueGeneratedNever();
-
                 entity.HasOne(d => d.IdItemNavigation)
                     .WithMany(p => p.OrderItems)
                     .HasForeignKey(d => d.IdItem)
@@ -82,16 +66,6 @@ namespace RestApiOrders.Model.Context
                     .HasForeignKey(d => d.IdOrder)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OrderItem_Order");
-            });
-
-            modelBuilder.Entity<UnitOfMeasurement>(entity =>
-            {
-                entity.Property(e => e.IdUnitOfMeasurement).ValueGeneratedNever();
-            });
-
-            modelBuilder.Entity<Worker>(entity =>
-            {
-                entity.Property(e => e.IdWorker).ValueGeneratedNever();
             });
 
             OnModelCreatingPartial(modelBuilder);

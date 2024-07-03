@@ -12,7 +12,7 @@ namespace RestApiOrders.Model
         }
 
         [Key]
-        public int IdOrder { get; set; }
+		public int IdOrder { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? DataOrder { get; set; }
         public int? IdClient { get; set; }

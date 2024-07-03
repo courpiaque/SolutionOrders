@@ -77,7 +77,6 @@ namespace ClientOrders
 			builder.Services.AddTransient<NewOrderPage>();
 
 			// Workers
-			builder.Services.AddTransient<WorkerDetailPage>();
 			builder.Services.AddSingleton<WorkersPage>();
 			builder.Services.AddTransient<NewWorkerPage>();
 

@@ -7,7 +7,7 @@ namespace RestApiOrders.Model
     public partial class OrderItem
     {
         [Key]
-        public int IdOrderItem { get; set; }
+		public int IdOrderItem { get; set; }
         public int IdOrder { get; set; }
         public int IdItem { get; set; }
         [Column(TypeName = "decimal(18, 0)")]
