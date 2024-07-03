@@ -1,9 +1,11 @@
 ﻿using ClientOrders.Models.Abstract;
+using System.Text.Json.Serialization;
 
 namespace ClientOrders.Models
 {
     public class Order : IEntity
     {
+        [JsonPropertyName("idOrder")]
         public int Id { get; set; }
         public DateTime? DataOrder { get; set; }
         public int? IdClient { get; set; }

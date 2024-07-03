@@ -7,7 +7,7 @@ namespace RestApiOrders.ForView
 {
     public class OrderForView
     {
-        public int Id { get; set; }
+        public int IdOrder { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? DataOrder { get; set; }
         public int? IdClient { get; set; }

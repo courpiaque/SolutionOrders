@@ -7,7 +7,7 @@ namespace RestApiOrders.ForView
 {
     public class ItemForView
     {
-        public int Id { get; set; }
+        public int IdItem { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public int IdCategory { get; set; }

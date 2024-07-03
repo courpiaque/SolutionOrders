@@ -6,7 +6,6 @@ namespace ClientOrders.ViewModels.Abstract
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public abstract class BaseItemUpdateViewModel<T> : BaseViewModel where T : IEntity
     {
-        private int itemId;
         public ICrudService<T> DataStore { get; } = new CrudService<T>();
         public BaseItemUpdateViewModel()
         {
@@ -16,20 +15,13 @@ namespace ClientOrders.ViewModels.Abstract
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
         public abstract bool ValidateSave();
-        public int ItemId
+        public int ItemId { get; set; }
+
+        public override void OnAppearing() 
         {
-            get
-            {
-                return itemId;
-            }
-            set
-            {
-                itemId = value;
-                LoadItem(value).GetAwaiter().GetResult();
-            }
+            _ = LoadItem(ItemId);
         }
 
-        public override void OnAppearing() { }
 		public Command SaveCommand { get; }
         public Command CancelCommand { get; }
         private async void OnCancel()

@@ -29,8 +29,8 @@ namespace ClientOrders.ViewModels.Workers
         public override bool ValidateSave()
             => !string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName);
 
-        public override Models.Worker SetItem()
-            => new Models.Worker()
+        public override Worker SetItem()
+            => new Worker()
             {
                 Id = Id,
                 FirstName = FirstName,

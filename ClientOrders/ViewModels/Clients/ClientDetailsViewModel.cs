@@ -57,6 +57,6 @@ namespace ClientOrders.ViewModels.Clients
         }
 
         protected override async Task GoToUpdatePage()
-            => await Shell.Current.GoToAsync($"{nameof(ClientUpdatePage)}?{nameof(ClientDetailsViewModel.ItemId)}={ItemId}");
+            => await Shell.Current.GoToAsync($"{nameof(ClientUpdatePage)}?{nameof(ItemId)}={ItemId}");
     }
 }

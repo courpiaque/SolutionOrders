@@ -54,12 +54,12 @@ namespace RestApiOrders.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutItem(int id, ItemForView item)
         {
-            if (id != item.Id)
+            if (id != item.IdItem)
             {
                 return BadRequest();
             }
             var itdb = _context.Items
-                    .FirstOrDefault(cli => item.Id == cli.IdItem)
+                    .FirstOrDefault(cli => item.IdItem == cli.IdItem)
                     .CopyProperties(item);
             _context.Entry(itdb).State = EntityState.Modified;
 
@@ -98,7 +98,7 @@ namespace RestApiOrders.Controllers
             }
             catch (DbUpdateException)
             {
-                if (ItemExists(item.Id))
+                if (ItemExists(item.IdItem))
                 {
                     return Conflict();
                 }

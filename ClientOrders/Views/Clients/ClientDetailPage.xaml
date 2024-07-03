@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<base:BaseContentPage
     x:Class="ClientOrders.Views.Clients.ClientDetailPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:base="clr-namespace:ClientOrders.Views.Abstract"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:ClientOrders.ViewModels.Clients"
-    Title="Add Client">
+    Title="Client details">
     <ContentPage.BindingContext>
         <vm:ClientDetailsViewModel />
     </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding UpdateCommand}" Text="Edit" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Frame>
-                <StackLayout Style="{x:StaticResource FormStack}">
-                    <Label FontSize="Medium" Text="Identifier" />
-                    <Entry FontSize="Medium" Text="{Binding Id, Mode=TwoWay}" />
-                    <Label FontSize="Medium" Text="Name" />
-                    <Entry FontSize="Medium" Text="{Binding Name, Mode=TwoWay}" />
-                    <Label FontSize="Medium" Text="Adres" />
-                    <Entry FontSize="Medium" Text="{Binding Address, Mode=TwoWay}" />
-                    <Label FontSize="Medium" Text="PhoneNumber" />
-                    <Entry FontSize="Medium" Text="{Binding PhoneNumber, Mode=TwoWay}" />
-                    <StackLayout Style="{x:StaticResource SaveStack}">
-                        <Button
-                            Command="{Binding SaveCommand}"
-                            HorizontalOptions="Center"
-                            Text="Save" />
-                    </StackLayout>
-                </StackLayout>
-            </Frame>
+            <Label FontSize="Medium" Text="Identifier" />
+            <Label FontSize="Small" Text="{Binding Id}" />
+            <Label FontSize="Medium" Text="Name" />
+            <Label FontSize="Small" Text="{Binding Name}" />
+            <Label FontSize="Medium" Text="Adres" />
+            <Label FontSize="Small" Text="{Binding Address}" />
+            <Label FontSize="Medium" Text="PhoneNumber" />
+            <Label FontSize="Small" Text="{Binding PhoneNumber}" />
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</base:BaseContentPage>

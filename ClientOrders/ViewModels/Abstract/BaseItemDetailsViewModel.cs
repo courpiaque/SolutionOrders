@@ -14,23 +14,15 @@ namespace ClientOrders.ViewModels.Abstract
             DeleteCommand = new Command(OnDelete);
             UpdateCommand = new Command(OnUpdate);
         }
-        public int ItemId
-        {
-            get
-            {
-                return itemId;
-            }
-            set
-            {
-                itemId = value;
-                LoadItem(value).GetAwaiter().GetResult();
-            }
-        }
+        public int ItemId { get; set; }
         public Command CancelCommand { get; }
         public Command DeleteCommand { get; }
         public Command UpdateCommand { get; }
 
-        public override void OnAppearing() { }
+        public override void OnAppearing() 
+        {
+            _ = LoadItem(ItemId);
+        }
 
 		private async void OnCancel()
             => await Shell.Current.GoToAsync("..");

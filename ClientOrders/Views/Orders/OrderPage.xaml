@@ -45,12 +45,6 @@
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
                             Text="{Binding WorkerData}" />
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderViewModel}}, Path=ItemTapped}"
-                                CommandParameter="{Binding .}"
-                                NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

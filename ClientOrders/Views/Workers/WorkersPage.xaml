@@ -23,19 +23,15 @@
                         <Label
                             FontSize="16"
                             LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListItemTextStyle}"
-                            Text="{Binding Name}" />
-                        <Label
-                            FontSize="13"
-                            LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListItemDetailTextStyle}"
-                            Text="{Binding Description}" />
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:WorkersViewModel}}, Path=ItemTapped}"
-                                CommandParameter="{Binding .}"
-                                NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
+                            Style="{DynamicResource ListItemTextStyle}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding FirstName}" />
+                                    <Span Text=" " />
+                                    <Span Text="{Binding LastName}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

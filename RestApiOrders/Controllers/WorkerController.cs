@@ -53,7 +53,7 @@ namespace RestApiOrders.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutWorker(int id, WorkerForView worker)
         {
-            if (id != worker.Id)
+            if (id != worker.IdWorker)
             {
                 return BadRequest();
             }
@@ -62,7 +62,7 @@ namespace RestApiOrders.Controllers
                 return NotFound();
             }
             var workdb = _context.Workers
-                    .FirstOrDefault(cli => worker.Id == cli.IdWorker)
+                    .FirstOrDefault(cli => worker.IdWorker == cli.IdWorker)
                     .CopyProperties(worker);
             _context.Entry(workdb).State = EntityState.Modified;
 
@@ -101,7 +101,7 @@ namespace RestApiOrders.Controllers
             }
             catch (DbUpdateException)
             {
-                if (WorkerExists(worker.Id))
+                if (WorkerExists(worker.IdWorker))
                 {
                     return Conflict();
                 }

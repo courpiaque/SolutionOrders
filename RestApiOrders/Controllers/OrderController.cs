@@ -52,13 +52,13 @@ namespace RestApiOrders.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder(int id, OrderForView order)
         {
-            if (id != order.Id)
+            if (id != order.IdOrder)
             {
                 return BadRequest();
             }
 
             var orderdb = _context.Orders
-                    .FirstOrDefault(cli => order.Id == order.Id)
+                    .FirstOrDefault(cli => order.IdOrder == order.IdOrder)
                     .CopyProperties(order);
             _context.Entry(orderdb).State = EntityState.Modified;
 
@@ -97,7 +97,7 @@ namespace RestApiOrders.Controllers
             }
             catch (DbUpdateException)
             {
-                if (OrderExists(order.Id))
+                if (OrderExists(order.IdOrder))
                 {
                     return Conflict();
                 }
