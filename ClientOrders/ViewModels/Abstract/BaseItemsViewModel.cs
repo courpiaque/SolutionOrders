@@ -8,11 +8,14 @@ namespace ClientOrders.ViewModels.Abstract
     public abstract class BaseItemsViewModel<T> : BaseViewModel where T : IEntity
     {
         #region Fields
-        public ICrudService<T> DataStore { get; } = new CrudService<T>();
+
+        protected readonly ICrudService CrudService;
         private T _selectedItem;
         #endregion
-        public BaseItemsViewModel()
+        public BaseItemsViewModel(ICrudService crudService)
         {
+            CrudService = crudService;
+
             Items = new ObservableCollection<T>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             ItemTapped = new Command<T>(OnItemSelected);
@@ -38,7 +41,7 @@ namespace ClientOrders.ViewModels.Abstract
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await CrudService.GetItemsAsync<T>(true);
 
                 if (items?.Count() > 0)
 					foreach (var item in items)

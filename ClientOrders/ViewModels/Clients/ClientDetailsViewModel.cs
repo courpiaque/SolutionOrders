@@ -1,11 +1,16 @@
 ﻿using System.Diagnostics;
+using ClientOrders.Services.Abstract;
 using ClientOrders.ViewModels.Abstract;
 using ClientOrders.Views.Clients;
 
 namespace ClientOrders.ViewModels.Clients
 {
-    internal class ClientDetailsViewModel : BaseItemDetailsViewModel<Models.Client>
+    public class ClientDetailsViewModel : BaseItemDetailsViewModel<Models.Client>
     {
+        public ClientDetailsViewModel(ICrudService crudService) : base(crudService)
+        {
+        }
+
         #region Fields
         private int id;
         private string name;
@@ -34,15 +39,12 @@ namespace ClientOrders.ViewModels.Clients
             set => SetProperty(ref phoneNumber, value);
         }
         #endregion
-        public ClientDetailsViewModel()
-        {
-        }
 
         public override async Task LoadItem(int id)
         {
             try
             {
-                var item = await DataStore.GetItemAsync(id);
+                var item = await CrudService.GetItemAsync<Models.Client>(id);
                 if (item == null)
                     return;
                 Id = id;

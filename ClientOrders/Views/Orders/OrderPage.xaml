@@ -5,10 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:ClientOrders.Views.Abstract"
     xmlns:vm="clr-namespace:ClientOrders.ViewModels.Orders"
+    xmlns:models="clr-namespace:ClientOrders.Models"
+    x:DataType="vm:OrderViewModel"
     Title="Orders">
-    <ContentPage.BindingContext>
-        <vm:OrderViewModel />
-    </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding AddItemCommand}" Text="Add" />
     </ContentPage.ToolbarItems>
@@ -17,7 +16,7 @@
         ItemsSource="{Binding Items}"
         SelectionMode="None">
         <ListView.ItemTemplate>
-            <DataTemplate>
+            <DataTemplate x:DataType="models:Order">
                 <ViewCell>
                     <StackLayout Padding="10" BackgroundColor="YellowGreen">
                         <Label

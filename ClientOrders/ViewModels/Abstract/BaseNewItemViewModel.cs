@@ -5,9 +5,11 @@ namespace ClientOrders.ViewModels.Abstract
 {
     public abstract class BaseNewItemViewModel<T> : BaseViewModel where T : IEntity
     {
-        public ICrudService<T> DataStore { get; } = new CrudService<T>();
-        public BaseNewItemViewModel()
+        protected readonly ICrudService CrudService;
+        public BaseNewItemViewModel(ICrudService crudService)
         {
+            CrudService = crudService;
+
             SaveCommand = new Command(OnSave, ValidateSave);
 
             PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
@@ -23,7 +25,7 @@ namespace ClientOrders.ViewModels.Abstract
         {
             var item = SetItem();
 
-            await DataStore.AddItemAsync(item);
+            await CrudService.AddItemAsync(item);
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }

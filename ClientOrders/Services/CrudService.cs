@@ -3,30 +3,14 @@ using System.Net.Http.Json;
 
 namespace ClientOrders.Services.Abstract
 {
-    public class CrudService<T> : ICrudService<T> where T : IEntity
+    public class CrudService : ICrudService
     {
-        public List<T> items;
         public CrudService()
             : base()
         {
         }
-        public virtual async Task Refresh()
-        {
-			using var client = CreateHttpClient();
 
-			try
-			{
-				var entities = await client.GetFromJsonAsync<IEnumerable<T>>($"{typeof(T).Name}");
-
-				items = entities.ToList();
-			}
-			catch (Exception ex)
-			{
-				await App.Current.MainPage.DisplayAlert("Error", ex.Message, "Cancel");
-			}
-		}
-
-        public virtual async Task<bool> DeleteItemFromService(int id)
+        public virtual async Task<bool> DeleteItemAsync<T>(int id) where T : IEntity
         {
 			using var client = CreateHttpClient();
 
@@ -44,7 +28,7 @@ namespace ClientOrders.Services.Abstract
 			}
 		}
 
-        public virtual async Task<bool> UpdateItemInService(T item)
+        public virtual async Task<bool> UpdateItemAsync<T>(T item) where T : IEntity
         {
 			using var client = CreateHttpClient();
 
@@ -62,7 +46,7 @@ namespace ClientOrders.Services.Abstract
 			}
 		}
 
-        public virtual async Task<bool> AddItemToService(T item)
+        public virtual async Task<bool> AddItemAsync<T>(T item) where T : IEntity
         {
 			using var client = CreateHttpClient();
 
@@ -80,15 +64,8 @@ namespace ClientOrders.Services.Abstract
 			}
 		}
 
-        public virtual async Task<bool> AddItemAsync(T item)
-        {
-            await AddItemToService(item);
-            await Refresh();
-            return await Task.FromResult(true);
-        }
-
-        public virtual async Task<T> Find(int id)
-        {
+        public virtual async Task<T> GetItemAsync<T>(int id) where T : IEntity
+		{
 			using var client = CreateHttpClient();
 
 			try
@@ -105,27 +82,22 @@ namespace ClientOrders.Services.Abstract
 			}
 		}
 
-        public virtual async Task<bool> UpdateItemAsync(T item)
+        public virtual async Task<IEnumerable<T>> GetItemsAsync<T>(bool forceRefresh = false) where T : IEntity
         {
-            await UpdateItemInService(item);
-            await Refresh();
-            return await Task.FromResult(true);
-        }
+            using var client = CreateHttpClient();
 
-        public virtual async Task<bool> DeleteItemAsync(int id)
-        {
-            await DeleteItemFromService(id);
-            await Refresh();
-            return await Task.FromResult(true);
-        }
+			try
+			{
+				var entities = await client.GetFromJsonAsync<IEnumerable<T>>($"{typeof(T).Name}");
 
-        public virtual async Task<T> GetItemAsync(int id)
-            => await Find(id);
+				return entities;
+			}
+			catch (Exception ex)
+			{
+				await App.Current.MainPage.DisplayAlert("Error", ex.Message, "Cancel");
 
-        public virtual async Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false)
-        {
-            await Refresh();
-            return await Task.FromResult(items);
+				return new List<T>();
+			}
         }
 
 		private static HttpClient CreateHttpClient()

@@ -1,16 +1,18 @@
 ﻿using System.Diagnostics;
+using ClientOrders.Models;
+using ClientOrders.Services.Abstract;
 using ClientOrders.ViewModels.Abstract;
 
 namespace ClientOrders.ViewModels.Workers
 {
-    public class WorkerDetailViewModel : BaseItemDetailsViewModel<Models.Worker>
+    public class WorkerDetailViewModel : BaseItemDetailsViewModel<Worker>
     {
-        private string name;
-        private string description;
-
-        public WorkerDetailViewModel()
+        public WorkerDetailViewModel(ICrudService crudService) : base(crudService)
         {
         }
+
+        private string name;
+        private string description;
 
         public int Id { get; set; }
 
@@ -30,7 +32,7 @@ namespace ClientOrders.ViewModels.Workers
         {
             try
             {
-                var item = await DataStore.GetItemAsync(id);
+                var item = await CrudService.GetItemAsync<Worker>(id);
                 Id = item.Id;
                 FirstName = item.FirstName;
                 LastName = item.LastName;

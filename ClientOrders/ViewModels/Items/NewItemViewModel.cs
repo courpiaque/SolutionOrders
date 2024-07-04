@@ -22,7 +22,7 @@ namespace ClientOrders.ViewModels.Items
 
         private readonly ILookupService lookupService;
 
-        public NewItemViewModel(ILookupService lookupService)
+        public NewItemViewModel(ILookupService lookupService, ICrudService crudService) : base(crudService)
         {
             this.lookupService = lookupService;
         }

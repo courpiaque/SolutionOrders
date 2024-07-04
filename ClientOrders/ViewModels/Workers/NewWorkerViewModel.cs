@@ -1,15 +1,20 @@
 ﻿using ClientOrders.Models;
+using ClientOrders.Services.Abstract;
 using ClientOrders.ViewModels.Abstract;
 
 namespace ClientOrders.ViewModels.Workers
 {
     public class NewWorkerViewModel : BaseNewItemViewModel<Worker>
     {
+        public NewWorkerViewModel(ICrudService crudService) : base(crudService)
+        {
+        }
+
         private int id;
         private string firstName;
         private string lastName;
 
-		public int Id
+        public int Id
 		{
 			get => id;
 			set => SetProperty(ref id, value);

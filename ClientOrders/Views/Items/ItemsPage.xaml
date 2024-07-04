@@ -5,16 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:ClientOrders.Views.Abstract"
     xmlns:vm="clr-namespace:ClientOrders.ViewModels.Items"
+    xmlns:models="clr-namespace:ClientOrders.Models"
+    x:DataType="vm:ItemsViewModel"
     Title="Items">
-    <ContentPage.BindingContext>
-        <vm:ItemsViewModel />
-    </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding AddItemCommand}" Text="Add" />
     </ContentPage.ToolbarItems>
     <ListView ItemsSource="{Binding Items}" SelectedItem="{x:Binding SelectedItem, Mode=TwoWay}">
         <ListView.ItemTemplate>
-            <DataTemplate>
+            <DataTemplate x:DataType="models:Item">
                 <TextCell Detail="{Binding Price, StringFormat='{0} $'}" Text="{Binding Name}" />
             </DataTemplate>
         </ListView.ItemTemplate>

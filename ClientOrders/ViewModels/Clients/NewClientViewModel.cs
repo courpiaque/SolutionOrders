@@ -1,4 +1,5 @@
 ﻿using ClientOrders.Models;
+using ClientOrders.Services.Abstract;
 using ClientOrders.ViewModels.Abstract;
 
 namespace ClientOrders.ViewModels.Clients
@@ -10,10 +11,15 @@ namespace ClientOrders.ViewModels.Clients
         private string name;
         private string address;
         private string phoneNumber;
-		#endregion
 
-		#region Properties
-		public int Id
+        #endregion
+
+        public NewClientViewModel(ICrudService crudService) : base(crudService)
+        {
+        }
+
+        #region Properties
+        public int Id
 		{
 			get => id;
 			set => SetProperty(ref id, value);

@@ -6,9 +6,11 @@ namespace ClientOrders.ViewModels.Abstract
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public abstract class BaseItemDetailsViewModel<T> : BaseViewModel where T : IEntity
     {
-        public ICrudService<T> DataStore { get; } = new CrudService<T>();
-        public BaseItemDetailsViewModel()
+        protected readonly ICrudService CrudService;
+        public BaseItemDetailsViewModel(ICrudService crudService)
         {
+            CrudService = crudService;
+
             CancelCommand = new Command(OnCancel);
             DeleteCommand = new Command(OnDelete);
             UpdateCommand = new Command(OnUpdate);
@@ -27,7 +29,7 @@ namespace ClientOrders.ViewModels.Abstract
             => await Shell.Current.GoToAsync("..");
         private async void OnDelete()
         {
-            await DataStore.DeleteItemAsync(ItemId);
+            await CrudService.DeleteItemAsync<T>(ItemId);
             await Shell.Current.GoToAsync("..");
         }
         private async void OnUpdate()

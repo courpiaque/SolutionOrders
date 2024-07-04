@@ -1,10 +1,16 @@
 ﻿using System.Diagnostics;
+using ClientOrders.Models;
+using ClientOrders.Services.Abstract;
 using ClientOrders.ViewModels.Abstract;
 
 namespace ClientOrders.ViewModels.Items
 {
-    public class ItemDetailViewModel : BaseItemDetailsViewModel<Models.Item>
+    public class ItemDetailViewModel : BaseItemDetailsViewModel<Item>
     {
+        public ItemDetailViewModel(ICrudService crudService) : base(crudService)
+        {
+        }
+
 		private int id;
 		private string name;
 		private string description;
@@ -14,10 +20,6 @@ namespace ClientOrders.ViewModels.Items
 		private string selectedPhoto;
 		private string selectedUnitOfMeasurement;
 		private string code;
-
-		public ItemDetailViewModel()
-        {
-        }
 
         public int Id { get; set; }
 
@@ -71,7 +73,7 @@ namespace ClientOrders.ViewModels.Items
         {
             try
             {
-                var item = await DataStore.GetItemAsync(id);
+                var item = await CrudService.GetItemAsync<Item>(id);
                 Id = item.Id;
                 Name = item.Name;
                 Description = item.Description;

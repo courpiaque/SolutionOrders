@@ -1,13 +1,15 @@
 ﻿using ClientOrders.Views.Clients;
 using ClientOrders.ViewModels.Abstract;
+using ClientOrders.Services.Abstract;
 
 namespace ClientOrders.ViewModels.Clients
 {
     public class ClientViewModel : BaseItemsViewModel<Models.Client>
     {
-        public ClientViewModel()
+        public ClientViewModel(ICrudService crudService) : base(crudService)
         {
         }
+
         public override async Task GoToAddPage()
             => await Shell.Current.GoToAsync(nameof(NewClientPage));
 

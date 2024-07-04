@@ -37,6 +37,7 @@ namespace ClientOrders
 
 		private static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
 		{		
+			builder.Services.AddSingleton<ICrudService, CrudService>();
 			builder.Services.AddSingleton<ILookupService, LookupService>();
 
 			return builder;

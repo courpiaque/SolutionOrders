@@ -6,9 +6,12 @@ namespace ClientOrders.ViewModels.Abstract
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public abstract class BaseItemUpdateViewModel<T> : BaseViewModel where T : IEntity
     {
-        public ICrudService<T> DataStore { get; } = new CrudService<T>();
-        public BaseItemUpdateViewModel()
+        protected readonly ICrudService CrudService;
+        
+        public BaseItemUpdateViewModel(ICrudService crudService)
         {
+            CrudService = crudService;
+
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             PropertyChanged +=
@@ -30,7 +33,9 @@ namespace ClientOrders.ViewModels.Abstract
         public abstract Task LoadItem(int id);
         private async void OnSave()
         {
-            await DataStore.UpdateItemAsync(SetItem());
+            var item = SetItem();
+
+            await CrudService.UpdateItemAsync(item);
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }

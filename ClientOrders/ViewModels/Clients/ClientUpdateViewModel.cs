@@ -1,19 +1,23 @@
 ﻿using ClientOrders.Helpers;
+using ClientOrders.Models;
+using ClientOrders.Services.Abstract;
 using ClientOrders.ViewModels.Abstract;
 using System.Diagnostics;
 
 namespace ClientOrders.ViewModels.Clients
 {
-    public class ClientUpdateViewModel : BaseItemUpdateViewModel<Models.Client>
+    public class ClientUpdateViewModel : BaseItemUpdateViewModel<Client>
     {
-        public ClientUpdateViewModel()
+        public ClientUpdateViewModel(ICrudService crudService) : base(crudService)
         {
         }
+
         #region Fields
         private int id;
         private string name;
         private string address;
         private string phoneNumber;
+
         #endregion
         #region Properties
         public int Id
@@ -41,7 +45,7 @@ namespace ClientOrders.ViewModels.Clients
         {
             try
             {
-                var item = await DataStore.GetItemAsync(id);
+                var item = await CrudService.GetItemAsync<Client>(id);
                 if (item == null)
                     return;
                 Id = id;

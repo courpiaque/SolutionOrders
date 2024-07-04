@@ -7,7 +7,7 @@ namespace ClientOrders.ViewModels.Orders
 {
     public class NewOrderViewModel : BaseNewItemViewModel<Order>
     {
-        public NewOrderViewModel()
+        public NewOrderViewModel(ICrudService crudService) : base(crudService)
         {
             DataOrder = DateTime.Now.Date;
             DeliveryDate = DateTime.Now.Date;
@@ -68,11 +68,8 @@ namespace ClientOrders.ViewModels.Orders
 
         public override async void OnAppearing()
         {
-            var workerService = new CrudService<Worker>();
-            var clientsService = new CrudService<Client>();
-
-			Workers = (await workerService.GetItemsAsync()).ToList();
-            Clients = (await clientsService.GetItemsAsync()).ToList();
+			Workers = (await CrudService.GetItemsAsync<Worker>()).ToList();
+            Clients = (await CrudService.GetItemsAsync<Client>()).ToList();
 
             base.OnAppearing();
         }
