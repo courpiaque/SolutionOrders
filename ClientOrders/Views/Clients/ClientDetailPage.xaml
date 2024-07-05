@@ -12,14 +12,19 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Style="{x:StaticResource FormStack}">
+
             <Label FontSize="Medium" Text="Identifier" />
             <Label FontSize="Small" Text="{Binding Id}" />
+
             <Label FontSize="Medium" Text="Name" />
             <Label FontSize="Small" Text="{Binding Name}" />
+
             <Label FontSize="Medium" Text="Adres" />
             <Label FontSize="Small" Text="{Binding Address}" />
+
             <Label FontSize="Medium" Text="PhoneNumber" />
             <Label FontSize="Small" Text="{Binding PhoneNumber}" />
+            
         </StackLayout>
     </ContentPage.Content>
 </base:BaseContentPage>

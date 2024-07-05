@@ -11,18 +11,22 @@
         <StackLayout>
             <Frame>
                 <StackLayout Style="{x:StaticResource FormStack}">
+
                     <Label FontSize="Medium" Text="Identifier" />
                     <Entry FontSize="Medium" Text="{Binding Id, Mode=TwoWay}" />
+
                     <Label FontSize="Medium" Text="First Name" />
                     <Entry
                         FontSize="Medium"
                         Placeholder="Text"
                         Text="{Binding FirstName, Mode=TwoWay}" />
                     <Label FontSize="Medium" Text="Last Name" />
+
                     <Entry
                         FontSize="Medium"
                         Placeholder="Text"
                         Text="{Binding LastName, Mode=TwoWay}" />
+                        
                     <StackLayout Style="{x:StaticResource SaveStack}">
                         <Button
                             Command="{Binding SaveCommand}"

@@ -11,10 +11,13 @@
         <StackLayout>
             <Frame>
                 <StackLayout Style="{x:StaticResource FormStack}">
+
                     <Label FontSize="Medium" Text="Identifier" />
                     <Entry FontSize="Medium" Text="{Binding Id, Mode=TwoWay}" />
+
                     <Label FontSize="Medium" Text="Date Order" />
-                    <DatePicker Date="{Binding DataOrder, Mode=TwoWay}" FontSize="Medium" />
+                    <DatePicker Date="{Binding DataOrder, Mode=TwoWay}" />
+
                     <Picker
                         Title="Select Client"
                         Margin="0"
@@ -22,6 +25,7 @@
                         ItemDisplayBinding="{Binding Name}"
                         ItemsSource="{Binding Clients}"
                         SelectedItem="{Binding SelectedClient}" />
+
                     <Picker
                         Title="Select worker"
                         Margin="0"
@@ -29,16 +33,20 @@
                         ItemDisplayBinding="{Binding LastName}"
                         ItemsSource="{Binding Workers}"
                         SelectedItem="{Binding SelectedWorker}" />
+
                     <Label FontSize="Medium" Text="Notes" />
                     <Entry FontSize="Medium" Text="{Binding Notes, Mode=TwoWay}" />
+
                     <Label FontSize="Medium" Text="Delivery Date" />
-                    <DatePicker Date="{Binding DeliveryDate, Mode=TwoWay}" FontSize="Medium" />
+                    <DatePicker Date="{Binding DeliveryDate, Mode=TwoWay}" />
+
                     <StackLayout Style="{x:StaticResource SaveStack}">
                         <Button
                             Command="{Binding SaveCommand}"
                             HorizontalOptions="Center"
                             Text="Save" />
                     </StackLayout>
+
                 </StackLayout>
             </Frame>
         </StackLayout>

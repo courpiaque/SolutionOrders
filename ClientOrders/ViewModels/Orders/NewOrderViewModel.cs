@@ -9,18 +9,16 @@ namespace ClientOrders.ViewModels.Orders
     {
         public NewOrderViewModel(ICrudService crudService) : base(crudService)
         {
-            DataOrder = DateTime.Now.Date;
-            DeliveryDate = DateTime.Now.Date;
         }
         #region Fields
         private int id;
-        private DateTime? dataOrder;
+        private DateTime dataOrder = DateTime.Now.Date;
         private string notes;
-        private DateTime? deliveryDate;
+        private DateTime deliveryDate = DateTime.Now.Date;
         private Client selectedClient;
         private Worker selectedWorker;
-        private List<Client> clients = new(); //todo
-        private List<Worker> workers = new();
+        private List<Client> clients;
+        private List<Worker> workers;
 		#endregion
 		#region Properties
 
@@ -29,7 +27,7 @@ namespace ClientOrders.ViewModels.Orders
 			get => id;
 			set => SetProperty(ref id, value);
 		}
-		public DateTime? DataOrder
+		public DateTime DataOrder
         {
             get => dataOrder;
             set => SetProperty(ref dataOrder, value);
@@ -59,7 +57,7 @@ namespace ClientOrders.ViewModels.Orders
             get => selectedWorker;
             set => SetProperty(ref selectedWorker, value);
         }
-        public DateTime? DeliveryDate
+        public DateTime DeliveryDate
         {
             get => deliveryDate;
             set => SetProperty(ref deliveryDate, value);
@@ -83,7 +81,7 @@ namespace ClientOrders.ViewModels.Orders
 
         public override bool ValidateSave()
         {
-            return selectedClient.Id != 0 && selectedWorker.Id != 0;
+            return selectedClient?.Id != 0 && selectedWorker?.Id != 0;
         }
     }
 }

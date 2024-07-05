@@ -11,14 +11,19 @@
         <StackLayout>
             <Frame>
                 <StackLayout Style="{x:StaticResource FormStack}">
+
                     <Label FontSize="Medium" Text="Identifier" />
                     <Label FontSize="Medium" Text="{Binding Id}" />
+
                     <Label FontSize="Medium" Text="Name" />
                     <Entry FontSize="Medium" Text="{Binding Name, Mode=TwoWay}" />
+                
                     <Label FontSize="Medium" Text="Adres" />
                     <Entry FontSize="Medium" Text="{Binding Address, Mode=TwoWay}" />
+
                     <Label FontSize="Medium" Text="PhoneNumber" />
                     <Entry FontSize="Medium" Text="{Binding PhoneNumber, Mode=TwoWay}" />
+                    
                     <StackLayout Style="{x:StaticResource SaveStack}">
                         <Button
                             Command="{Binding SaveCommand}"

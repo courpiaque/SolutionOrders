@@ -1,5 +1,6 @@
 ﻿using ClientOrders.Services.Abstract;
 using ClientOrders.ViewModels.Abstract;
+using ClientOrders.Views.Accounts;
 
 namespace ClientOrders.ViewModels.Accounts
 {
@@ -8,19 +9,24 @@ namespace ClientOrders.ViewModels.Accounts
         private string login;
         private string password;
         private readonly IAuthService authService;
+        private readonly IServiceProvider serviceProvider;
+
         //private readonly AppShell appShell;
 
-        public LoginViewModel(IAuthService authService)//, AppShell appShell)
+        public LoginViewModel(IAuthService authService, RegisterPage registerPage, IServiceProvider serviceProvider)//, AppShell appShell)
         {
             this.authService = authService;
+            this.serviceProvider = serviceProvider;
             //this.appShell= appShell;
 
-            LoginCommand = new Command(async () => await OnLogin(), CanLogin);
+            LoginCommand = new Command(async () => await OnLogin());//, CanLogin);
+            GoToRegisterCommand = new Command(async () => await App.Current.MainPage.Navigation.PushAsync(registerPage));
 
             PropertyChanged += (_, __) => LoginCommand.ChangeCanExecute();
         }
 
-        public Command LoginCommand {get;}
+        public Command LoginCommand { get; }
+        public Command GoToRegisterCommand { get; }
 
         public string Login
         {
@@ -36,7 +42,7 @@ namespace ClientOrders.ViewModels.Accounts
 
         private bool CanLogin() => 
            !string.IsNullOrEmpty(Login) 
-        || !string.IsNullOrEmpty(Password);
+        && !string.IsNullOrEmpty(Password);
 
         private async Task OnLogin()
         {
@@ -44,7 +50,7 @@ namespace ClientOrders.ViewModels.Accounts
 
             if (success)
             {
-                //App.Current.MainPage = appShell;
+                App.Current.MainPage = serviceProvider.GetService<AppShell>();
             }
         }
 

@@ -11,6 +11,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding AddItemCommand}" Text="Add" />
     </ContentPage.ToolbarItems>
+
     <ListView ItemsSource="{Binding Items}" SelectedItem="{x:Binding SelectedItem, Mode=TwoWay}">
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="models:Item">
@@ -18,4 +19,5 @@
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
+    
 </base:BaseContentPage>

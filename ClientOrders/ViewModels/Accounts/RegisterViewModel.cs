@@ -43,13 +43,13 @@ namespace ClientOrders.ViewModels.Accounts
 
         private bool CanRegister() => 
            !string.IsNullOrEmpty(Login) 
-        || !string.IsNullOrEmpty(Password) 
-        || !string.IsNullOrEmpty(ConfirmPassword);
+        && !string.IsNullOrEmpty(Password) 
+        && !string.IsNullOrEmpty(ConfirmPassword);
 
         private async Task OnRegister()
         {
             if (Password != ConfirmPassword)
-                await App.Current.MainPage.DisplayAlert("Invalid password", "Passwords must match", "Ok");
+                await App.Current.MainPage.DisplayAlert("Wrong credentials", "Passwords must match", "Ok");
 
             var success = await authService.RegisterAsync(login, password);
 

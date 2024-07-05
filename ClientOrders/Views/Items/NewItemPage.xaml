@@ -13,16 +13,20 @@
             <StackLayout>
                 <Frame>
                     <StackLayout Style="{x:StaticResource FormStack}">
+                    
                         <Label FontSize="Medium" Text="Identifier" />
                         <Entry FontSize="Medium" Text="{Binding Id, Mode=TwoWay}" />
+
                         <Label FontSize="Medium" Text="Name" />
                         <Entry FontSize="Medium" Text="{Binding Name, Mode=TwoWay}" />
+
                         <Label FontSize="Medium" Text="Description" />
                         <Editor
                             Margin="0"
                             AutoSize="TextChanges"
                             FontSize="Medium"
                             Text="{Binding Description, Mode=TwoWay}" />
+
                         <Picker
                             Title="Category"
                             Margin="0"
@@ -30,10 +34,13 @@
                             ItemDisplayBinding="{Binding Name}"
                             ItemsSource="{Binding Categories}"
                             SelectedItem="{Binding SelectedCategory}" />
+
                         <Label FontSize="Medium" Text="Price" />
                         <Entry FontSize="Medium" Text="{Binding Price, Mode=TwoWay}" />
+
                         <Label FontSize="Medium" Text="Quantity" />
                         <Entry FontSize="Medium" Text="{Binding Quantity, Mode=TwoWay}" />
+
                         <Picker
                             Title="Photo"
                             Margin="0"
@@ -44,6 +51,7 @@
                             HeightRequest="50"
                             Source="{x:Binding SelectedPhoto}"
                             WidthRequest="50" />
+                            
                         <Picker
                             Title="Unit of measurement"
                             Margin="0"
@@ -51,8 +59,10 @@
                             ItemDisplayBinding="{Binding Name}"
                             ItemsSource="{Binding UnitOfMeasurements}"
                             SelectedItem="{Binding SelectedUnitOfMeasurement}" />
+
                         <Label FontSize="Medium" Text="Code" />
                         <Entry FontSize="Medium" Text="{Binding Code, Mode=TwoWay}" />
+
                         <StackLayout Style="{x:StaticResource SaveStack}">
                             <Button
                                 Command="{Binding SaveCommand}"

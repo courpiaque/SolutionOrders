@@ -10,16 +10,23 @@
     <ContentPage.Content>
         <StackLayout>
             <Frame>
-                <StackLayout Style="{x:StaticResource FormStack}">
+                <StackLayout Spacing="10">
+
                     <Label FontSize="Medium" Text="Login" />
                     <Entry FontSize="Medium" Text="{Binding Login, Mode=TwoWay}" />
+
                     <Label FontSize="Medium" Text="Password" />
                     <Entry FontSize="Medium" IsPassword="True" Text="{Binding Password, Mode=TwoWay}" />
-                    <StackLayout Style="{x:StaticResource SaveStack}">
+
+                    <StackLayout Spacing="10">
                         <Button
                             Command="{Binding LoginCommand}"
                             HorizontalOptions="Center"
                             Text="Login" />
+                        <Button
+                            Command="{Binding GoToRegisterCommand}"
+                            HorizontalOptions="Center"
+                            Text="No account? Register!"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>
