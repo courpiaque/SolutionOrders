@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 
 namespace ClientOrders.Services
 {
-    public class LookupService : ILookupService
+    public class LookupService : BaseHttpService, ILookupService
     {
         public virtual async Task<IEnumerable<T>> GetLookupsAsync<T>(bool forceRefresh = false) where T : ILookup
         {
@@ -23,10 +23,5 @@ namespace ClientOrders.Services
                 return new List<T>();
 			}
         }
-
-		private static HttpClient CreateHttpClient()
-		{
-			return new HttpClient { BaseAddress = new Uri("http://10.0.2.2:5209/api/") };
-		}
 	}
 }

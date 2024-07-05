@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ClientOrders.Views.Accounts.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:ClientOrders.Views.Abstract"
+    xmlns:vm="clr-namespace:ClientOrders.ViewModels.Accounts"
+    x:DataType="vm:RegisterViewModel"
+    Title="Register">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame>
+                <StackLayout Style="{x:StaticResource FormStack}">
+                    <Label FontSize="Medium" Text="Login" />
+                    <Entry FontSize="Medium" Text="{Binding Login, Mode=TwoWay}" />
+                    <Label FontSize="Medium" Text="Password" />
+                    <Entry FontSize="Medium" IsPassword="True" Text="{Binding Password, Mode=TwoWay}" />
+                    <Label FontSize="Medium" Text="Confirm password" />
+                    <Entry FontSize="Medium" IsPassword="True" Text="{Binding ConfirmPassword, Mode=TwoWay}" />
+                    <StackLayout Style="{x:StaticResource SaveStack}">
+                        <Button
+                            Command="{Binding RegisterCommand}"
+                            HorizontalOptions="Center"
+                            Text="Register" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

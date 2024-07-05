@@ -1,9 +1,11 @@
 ﻿using ClientOrders.Services;
 using ClientOrders.Services.Abstract;
+using ClientOrders.ViewModels.Accounts;
 using ClientOrders.ViewModels.Clients;
 using ClientOrders.ViewModels.Items;
 using ClientOrders.ViewModels.Orders;
 using ClientOrders.ViewModels.Workers;
+using ClientOrders.Views.Accounts;
 using ClientOrders.Views.Clients;
 using ClientOrders.Views.Items;
 using ClientOrders.Views.Orders;
@@ -37,6 +39,7 @@ namespace ClientOrders
 
 		private static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
 		{		
+			builder.Services.AddSingleton<IAuthService, AuthService>();
 			builder.Services.AddSingleton<ICrudService, CrudService>();
 			builder.Services.AddSingleton<ILookupService, LookupService>();
 
@@ -45,6 +48,10 @@ namespace ClientOrders
 
 		private static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
 		{		
+			// Accounts
+			builder.Services.AddTransient<LoginViewModel>();
+			builder.Services.AddTransient<RegisterViewModel>();
+
 			// Clients
 			builder.Services.AddTransient<ClientDetailsViewModel>();
 			builder.Services.AddTransient<ClientUpdateViewModel>();
@@ -71,6 +78,10 @@ namespace ClientOrders
 		private static MauiAppBuilder RegisterViews(this MauiAppBuilder builder)
 		{
 			builder.Services.AddSingleton<AppShell>();
+
+			// Accounts
+			builder.Services.AddTransient<LoginPage>();
+			builder.Services.AddTransient<RegisterPage>();
 
 			// Clients
 			builder.Services.AddTransient<ClientDetailPage>();

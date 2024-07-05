@@ -1,13 +1,15 @@
-﻿namespace ClientOrders;
+﻿using ClientOrders.Views.Accounts;
+
+namespace ClientOrders;
 
 public partial class App : Application
 {
-	public App(AppShell appShell)
+	public App(LoginPage loginPage)
 	{
 		App.Current.UserAppTheme = AppTheme.Light;
 
 		InitializeComponent();
 
-		MainPage = appShell;
+		MainPage =  new NavigationPage(loginPage);
 	}
 }

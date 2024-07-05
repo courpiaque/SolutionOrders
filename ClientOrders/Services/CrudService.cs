@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 
 namespace ClientOrders.Services.Abstract
 {
-    public class CrudService : ICrudService
+    public class CrudService : BaseHttpService, ICrudService
     {
         public CrudService()
             : base()
@@ -98,11 +98,6 @@ namespace ClientOrders.Services.Abstract
 
 				return new List<T>();
 			}
-        }
-
-		private static HttpClient CreateHttpClient()
-		{
-			return new HttpClient { BaseAddress = new Uri("http://10.0.2.2:5209/api/") };
 		}
 	}
 }
