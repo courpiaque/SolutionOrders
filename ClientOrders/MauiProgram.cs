@@ -10,7 +10,9 @@ using ClientOrders.Views.Clients;
 using ClientOrders.Views.Items;
 using ClientOrders.Views.Orders;
 using ClientOrders.Views.Workers;
+using Firebase.Analytics.Connector;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 
 namespace ClientOrders
 {
@@ -24,6 +26,7 @@ namespace ClientOrders
 				.RegisterServices()
 				.RegisterViewModels()
 				.RegisterViews()
+				.RegisterFirebase()
 				.ConfigureFonts(fonts =>
 				{
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -42,6 +45,7 @@ namespace ClientOrders
 			builder.Services.AddSingleton<IAuthService, AuthService>();
 			builder.Services.AddSingleton<ICrudService, CrudService>();
 			builder.Services.AddSingleton<ILookupService, LookupService>();
+			builder.Services.AddSingleton<IAnalyticsService, AnalyticsService>();
 
 			return builder;
 		}
@@ -101,6 +105,18 @@ namespace ClientOrders
 			// Workers
 			builder.Services.AddSingleton<WorkersPage>();
 			builder.Services.AddTransient<NewWorkerPage>();
+
+			return builder;
+		}
+
+		private static MauiAppBuilder RegisterFirebase(this MauiAppBuilder builder)
+		{
+			builder.ConfigureLifecycleEvents(events =>
+			{
+				events.AddAndroid(android => android.OnCreate((activity, bundle) => {
+					Firebase.FirebaseApp.InitializeApp(activity);
+				}));
+			});	
 
 			return builder;
 		}

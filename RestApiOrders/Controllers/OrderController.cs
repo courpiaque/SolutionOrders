@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RestApiOrders.ForView;
+using RestApiOrders.DTOs;
 using RestApiOrders.Helpers;
 using RestApiOrders.Model.Context;
 
@@ -8,6 +9,7 @@ namespace RestApiOrders.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly CompanyContext _context;
@@ -18,20 +20,20 @@ namespace RestApiOrders.Controllers
         }
         // GET: api/Orders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderForView>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders()
         {
             if (_context.Orders == null)
             {
                 return NotFound();
             }
             return (await _context.Orders.ToListAsync())
-                .Select(ord => (OrderForView)ord)
+                .Select(ord => (OrderDto)ord)
                 .ToList();
         }
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderForView>> GetOrder(int id)
+        public async Task<ActionResult<OrderDto>> GetOrder(int id)
         {
             if (_context.Orders == null)
             {
@@ -44,13 +46,27 @@ namespace RestApiOrders.Controllers
                 return NotFound();
             }
 
-            return (OrderForView)order;
+            return (OrderDto)order;
         }
 
-        // PUT: api/Orders/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, OrderForView order)
+		// GET: api/Orders/Items/5
+		[HttpGet("{id}/Items")]
+		public async Task<ActionResult<IEnumerable<OrderItemDto>>> GetOrderItems(int id)
+		{
+			if (_context.Orders == null)
+            { 
+				return NotFound();
+			}
+			return (await _context.OrderItems.ToListAsync())
+                .Where(ord => ord.IdOrder == id)
+				.Select(ord => (OrderItemDto)ord)
+				.ToList();
+		}
+
+		// PUT: api/Orders/5
+		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+		[HttpPut("{id}")]
+        public async Task<IActionResult> PutOrder(int id, OrderDto order)
         {
             if (id != order.IdOrder)
             {
@@ -84,7 +100,7 @@ namespace RestApiOrders.Controllers
         // POST: api/Order
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<OrderForView>> PostOrder(OrderForView order)
+        public async Task<ActionResult<OrderDto>> PostOrder(OrderDto order)
         {
             if (_context.Orders == null)
             {

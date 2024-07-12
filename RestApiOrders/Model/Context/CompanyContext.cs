@@ -11,8 +11,10 @@ namespace RestApiOrders.Model.Context
         public CompanyContext(DbContextOptions<CompanyContext> options)
             : base(options)
         {
+
         }
 
+		public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Client> Clients { get; set; } = null!;
         public virtual DbSet<Item> Items { get; set; } = null!;
@@ -72,5 +74,19 @@ namespace RestApiOrders.Model.Context
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-    }
+
+		// For migrations only
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			if (!optionsBuilder.IsConfigured)
+			{
+				IConfigurationRoot configuration = new ConfigurationBuilder()
+					.SetBasePath(Directory.GetCurrentDirectory())
+					.AddJsonFile("appsettings.json")
+					.Build();
+				var connectionString = configuration.GetConnectionString("CompanyContext");
+				optionsBuilder.UseSqlServer(connectionString);
+			}
+		}
+	}
 }

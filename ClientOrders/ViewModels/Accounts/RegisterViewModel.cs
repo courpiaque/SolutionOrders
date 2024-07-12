@@ -10,15 +10,16 @@ namespace ClientOrders.ViewModels.Accounts
         private string password;
         private string confirmPassword;
         private readonly IAuthService authService;
+		private readonly IAnalyticsService analyticsService;
 
-        public RegisterViewModel(IAuthService authService)
+		public RegisterViewModel(IAuthService authService, IAnalyticsService analyticsService)
         {
             this.authService = authService;
+			this.analyticsService=analyticsService;
 
-            RegisterCommand = new Command(async () => await OnRegister(), CanRegister);
+			RegisterCommand = new Command(async () => await OnRegister(), CanRegister);
 
             PropertyChanged += (_, __) => RegisterCommand.ChangeCanExecute();
-
         }
 
         public Command RegisterCommand {get;}
@@ -55,7 +56,10 @@ namespace ClientOrders.ViewModels.Accounts
 
             if (success)
             {
+                analyticsService.Log("User registered");
 
+                await App.Current.MainPage.DisplayAlert("Account created!", "You can log in", "Ok");
+                await App.Current.MainPage.Navigation.PopAsync();
             }
         }
 

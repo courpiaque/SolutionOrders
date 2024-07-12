@@ -12,7 +12,7 @@ namespace ClientOrders.ViewModels.Workers
         }
 
         private string name;
-        private string description;
+        private string lastName;
 
         public int Id { get; set; }
 
@@ -24,8 +24,8 @@ namespace ClientOrders.ViewModels.Workers
 
         public string LastName
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => lastName;
+            set => SetProperty(ref lastName, value);
         }
 
         public override async Task LoadItem(int id)
@@ -43,9 +43,6 @@ namespace ClientOrders.ViewModels.Workers
             }
         }
 
-        protected override Task GoToUpdatePage()
-        {
-            throw new NotImplementedException();
-        }
+        protected override Task GoToUpdatePage() { return Task.CompletedTask; }
     }
 }

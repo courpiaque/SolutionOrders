@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RestApiOrders.ForView;
+using RestApiOrders.DTOs;
 using RestApiOrders.Helpers;
 using RestApiOrders.Model;
 using RestApiOrders.Model.Context;
@@ -9,6 +10,7 @@ namespace RestApiOrders.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ItemController : ControllerBase
     {
         private readonly CompanyContext _context;
@@ -20,20 +22,20 @@ namespace RestApiOrders.Controllers
 
         // GET: api/Item
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ItemForView>>> GetItems()
+        public async Task<ActionResult<IEnumerable<ItemDto>>> GetItems()
         {
             if (_context.Items == null)
             {
                 return NotFound();
             }
             return (await _context.Items.ToListAsync())
-                    .Select(it=>(ItemForView)it)
+                    .Select(it=>(ItemDto)it)
                     .ToList();
         }
 
         // GET: api/Item/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ItemForView>> GetItem(int id)
+        public async Task<ActionResult<ItemDto>> GetItem(int id)
         {
             if (_context.Items == null)
             {
@@ -46,13 +48,13 @@ namespace RestApiOrders.Controllers
                 return NotFound();
             }
 
-            return (ItemForView)item;
+            return (ItemDto)item;
         }
 
         // PUT: api/Item/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItem(int id, ItemForView item)
+        public async Task<IActionResult> PutItem(int id, ItemDto item)
         {
             if (id != item.IdItem)
             {
@@ -85,7 +87,7 @@ namespace RestApiOrders.Controllers
         // POST: api/Item
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ItemForView>> PostItem(ItemForView item)
+        public async Task<ActionResult<ItemDto>> PostItem(ItemDto item)
         {
             if (_context.Items == null)
             {

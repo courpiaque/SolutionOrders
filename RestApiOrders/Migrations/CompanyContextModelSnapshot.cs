@@ -25,7 +25,10 @@ namespace RestApiOrders.Migrations
             modelBuilder.Entity("RestApiOrders.Model.Category", b =>
                 {
                     b.Property<int>("IdCategory")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCategory"), 1L, 1);
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -44,7 +47,10 @@ namespace RestApiOrders.Migrations
             modelBuilder.Entity("RestApiOrders.Model.Client", b =>
                 {
                     b.Property<int>("IdClient")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdClient"), 1L, 1);
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -66,7 +72,10 @@ namespace RestApiOrders.Migrations
             modelBuilder.Entity("RestApiOrders.Model.Item", b =>
                 {
                     b.Property<int>("IdItem")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdItem"), 1L, 1);
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
@@ -107,7 +116,10 @@ namespace RestApiOrders.Migrations
             modelBuilder.Entity("RestApiOrders.Model.Order", b =>
                 {
                     b.Property<int>("IdOrder")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdOrder"), 1L, 1);
 
                     b.Property<DateTime?>("DataOrder")
                         .HasColumnType("datetime");
@@ -137,7 +149,10 @@ namespace RestApiOrders.Migrations
             modelBuilder.Entity("RestApiOrders.Model.OrderItem", b =>
                 {
                     b.Property<int>("IdOrderItem")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdOrderItem"), 1L, 1);
 
                     b.Property<int>("IdItem")
                         .HasColumnType("int");
@@ -163,7 +178,10 @@ namespace RestApiOrders.Migrations
             modelBuilder.Entity("RestApiOrders.Model.UnitOfMeasurement", b =>
                 {
                     b.Property<int>("IdUnitOfMeasurement")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdUnitOfMeasurement"), 1L, 1);
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -179,10 +197,34 @@ namespace RestApiOrders.Migrations
                     b.ToTable("UnitOfMeasurement");
                 });
 
+            modelBuilder.Entity("RestApiOrders.Model.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("RestApiOrders.Model.Worker", b =>
                 {
                     b.Property<int>("IdWorker")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdWorker"), 1L, 1);
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");

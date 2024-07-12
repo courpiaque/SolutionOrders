@@ -10,17 +10,18 @@ namespace ClientOrders.ViewModels.Accounts
         private string password;
         private readonly IAuthService authService;
         private readonly IServiceProvider serviceProvider;
+		private readonly IAnalyticsService analyticsService;
 
-        //private readonly AppShell appShell;
+		//private readonly AppShell appShell;
 
-        public LoginViewModel(IAuthService authService, RegisterPage registerPage, IServiceProvider serviceProvider)//, AppShell appShell)
+		public LoginViewModel(IAuthService authService, IServiceProvider serviceProvider, IAnalyticsService analyticsService)
         {
             this.authService = authService;
             this.serviceProvider = serviceProvider;
-            //this.appShell= appShell;
+			this.analyticsService = analyticsService;
 
-            LoginCommand = new Command(async () => await OnLogin());//, CanLogin);
-            GoToRegisterCommand = new Command(async () => await App.Current.MainPage.Navigation.PushAsync(registerPage));
+			LoginCommand = new Command(async () => await OnLogin(), CanLogin);
+            GoToRegisterCommand = new Command(async () => await OnGoToRegister());
 
             PropertyChanged += (_, __) => LoginCommand.ChangeCanExecute();
         }
@@ -46,14 +47,20 @@ namespace ClientOrders.ViewModels.Accounts
 
         private async Task OnLogin()
         {
-            var success = true; //await authService.LoginAsync(Login, Password);
+            var success = await authService.LoginAsync(Login, Password);
 
             if (success)
             {
+                analyticsService.Log("User logged");
                 App.Current.MainPage = serviceProvider.GetService<AppShell>();
             }
         }
+		private async Task OnGoToRegister()
+		{
+			var registerPage = serviceProvider.GetService<RegisterPage>();
+			await App.Current.MainPage.Navigation.PushAsync(registerPage);
+		}
 
-        public override void OnAppearing() { }
+		public override void OnAppearing() { }
     }
 }

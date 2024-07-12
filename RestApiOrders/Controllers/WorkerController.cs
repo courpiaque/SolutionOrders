@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RestApiOrders.ForView;
+using RestApiOrders.DTOs;
 using RestApiOrders.Helpers;
 using RestApiOrders.Model.Context;
 
@@ -8,6 +9,7 @@ namespace RestApiOrders.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class WorkerController : ControllerBase
     {
         private readonly CompanyContext _context;
@@ -19,20 +21,20 @@ namespace RestApiOrders.Controllers
 
         // GET: api/Worker
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WorkerForView>>> GetWorkers()
+        public async Task<ActionResult<IEnumerable<WorkerDto>>> GetWorkers()
         {
             if (_context.Workers == null)
             {
                 return NotFound();
             }
             return (await _context.Workers.ToListAsync())
-                    .Select(wrk => (WorkerForView)wrk)
+                    .Select(wrk => (WorkerDto)wrk)
                     .ToList();
         }
 
         // GET: api/Worker/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<WorkerForView>> GetWorker(int id)
+        public async Task<ActionResult<WorkerDto>> GetWorker(int id)
         {
             if (_context.Workers == null)
             {
@@ -45,13 +47,13 @@ namespace RestApiOrders.Controllers
                 return NotFound();
             }
 
-            return (WorkerForView)worker;
+            return (WorkerDto)worker;
         }
 
         // PUT: api/Worker/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWorker(int id, WorkerForView worker)
+        public async Task<IActionResult> PutWorker(int id, WorkerDto worker)
         {
             if (id != worker.IdWorker)
             {
@@ -88,7 +90,7 @@ namespace RestApiOrders.Controllers
         // POST: api/Worker
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<WorkerForView>> PostWorker(WorkerForView worker)
+        public async Task<ActionResult<WorkerDto>> PostWorker(WorkerDto worker)
         {
             if (_context.Workers == null)
             {

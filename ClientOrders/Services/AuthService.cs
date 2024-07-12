@@ -1,17 +1,23 @@
 using System.Net.Http.Json;
+using ClientOrders.Helpers;
 using ClientOrders.Services.Abstract;
 
 namespace ClientOrders.Services
 {
     public class AuthService : BaseHttpService, IAuthService
     {
+		private record User(string Login, string Password);
+		private record TokenResponse(string Token);
+
         public async Task<bool> LoginAsync(string login, string password)
         {
             using var client = CreateHttpClient();
 
 			try
 			{
-				var responseMessage = await client.PostAsJsonAsync($"Account/login", (login, password));
+				var responseMessage = await client.PostAsJsonAsync($"Auth/login", new User(login, password));
+
+				TokenKeeper.Current.Token = (await responseMessage.Content.ReadFromJsonAsync<TokenResponse>()).Token;
 
                 return true;
 			}
@@ -29,7 +35,7 @@ namespace ClientOrders.Services
 
 			try
 			{
-				var responseMessage = await client.PostAsJsonAsync($"Account/register", (login, password));
+				await client.PostAsJsonAsync($"Auth/register", new User(login, password));
 
                 return true;
 			}

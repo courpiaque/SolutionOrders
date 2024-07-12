@@ -1,11 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RestApiOrders.ForView;
+using RestApiOrders.DTOs;
 using RestApiOrders.Model.Context;
 
 namespace RestApiOrders.Controllers
 {
     [Route("api/[controller]")]
+	[Authorize]
     [ApiController]
     public class CategoryController : ControllerBase
     {
@@ -18,21 +20,21 @@ namespace RestApiOrders.Controllers
 
         // GET: api/Category
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoryForView>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
         {
           if (_context.Categories == null)
           {
               return NotFound();
           }
             return (await _context.Categories.ToListAsync())
-                .Select(cli => (CategoryForView)cli)
+                .Select(cli => (CategoryDto)cli)
                 .ToList();
         }
 
 		// POST: api/Category
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
-		public async Task<ActionResult<CategoryForView>> PostClient(CategoryForView category)
+		public async Task<ActionResult<CategoryDto>> PostClient(CategoryDto category)
 		{
 			if (_context.Categories == null)
 			{

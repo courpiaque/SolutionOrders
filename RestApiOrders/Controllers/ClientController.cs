@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RestApiOrders.ForView;
+using RestApiOrders.DTOs;
 using RestApiOrders.Helpers;
 using RestApiOrders.Model.Context;
 
@@ -8,6 +9,7 @@ namespace RestApiOrders.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ClientController : ControllerBase
     {
         private readonly CompanyContext _context;
@@ -19,20 +21,20 @@ namespace RestApiOrders.Controllers
 
         // GET: api/Client
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClientForView>>> GetClients()
+        public async Task<ActionResult<IEnumerable<ClientDto>>> GetClients()
         {
           if (_context.Clients == null)
           {
               return NotFound();
           }
             return (await _context.Clients.ToListAsync())
-                .Select(cli => (ClientForView)cli)
+                .Select(cli => (ClientDto)cli)
                 .ToList();
         }
 
         // GET: api/Client/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ClientForView>> GetClient(int id)
+        public async Task<ActionResult<ClientDto>> GetClient(int id)
         {
           if (_context.Clients == null)
           {
@@ -45,13 +47,13 @@ namespace RestApiOrders.Controllers
                 return NotFound();
             }
 
-            return (ClientForView)client;
+            return (ClientDto)client;
         }
 
         // PUT: api/Client/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClient(int id, ClientForView client)
+        public async Task<IActionResult> PutClient(int id, ClientDto client)
         {
             if (id != client.IdClient)
             {
@@ -84,7 +86,7 @@ namespace RestApiOrders.Controllers
         // POST: api/Client
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ClientForView>> PostClient(ClientForView client)
+        public async Task<ActionResult<ClientDto>> PostClient(ClientDto client)
         {
           if (_context.Clients == null)
           {

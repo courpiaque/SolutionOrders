@@ -1,12 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RestApiOrders.ForView;
+using RestApiOrders.DTOs;
 using RestApiOrders.Model.Context;
 
 namespace RestApiOrders.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+	[Authorize]
     public class UnitOfMeasurementController : ControllerBase
     {
         private readonly CompanyContext _context;
@@ -18,21 +20,21 @@ namespace RestApiOrders.Controllers
 
 		// GET: api/UnitOfMeasurement
 		[HttpGet]
-        public async Task<ActionResult<IEnumerable<UnitOfMeasurementForView>>> GetUnitOfMeasurements()
+        public async Task<ActionResult<IEnumerable<UnitOfMeasurementDto>>> GetUnitOfMeasurements()
         {
           if (_context.UnitOfMeasurements == null)
           {
               return NotFound();
           }
             return (await _context.UnitOfMeasurements.ToListAsync())
-                .Select(cli => (UnitOfMeasurementForView)cli)
+                .Select(cli => (UnitOfMeasurementDto)cli)
                 .ToList();
         }
 
 		// POST: api/UnitOfMeasurement
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
-		public async Task<ActionResult<UnitOfMeasurementForView>> PostClient(UnitOfMeasurementForView unit)
+		public async Task<ActionResult<UnitOfMeasurementDto>> PostClient(UnitOfMeasurementDto unit)
 		{
 			if (_context.UnitOfMeasurements == null)
 			{
