@@ -11,15 +11,15 @@ namespace ClientOrders.ViewModels.Workers
         {
         }
 
-        private string name;
+        private string firstName;
         private string lastName;
 
         public int Id { get; set; }
 
         public string FirstName
         {
-            get => name;
-            set => SetProperty(ref name, value);
+            get => firstName;
+            set => SetProperty(ref firstName, value);
         }
 
         public string LastName

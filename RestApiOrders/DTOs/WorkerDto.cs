@@ -8,6 +8,7 @@ namespace RestApiOrders.DTOs
         public int IdWorker { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public string? Login { get; set; }
         public bool IsActive { get; set; }
 
         //move to copy service

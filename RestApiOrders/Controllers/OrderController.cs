@@ -26,7 +26,10 @@ namespace RestApiOrders.Controllers
             {
                 return NotFound();
             }
-            return (await _context.Orders.ToListAsync())
+            return (await _context.Orders
+                .Include(x => x.IdWorkerNavigation)
+                .Include(x => x.IdClientNavigation)
+                .ToListAsync())
                 .Select(ord => (OrderDto)ord)
                 .ToList();
         }

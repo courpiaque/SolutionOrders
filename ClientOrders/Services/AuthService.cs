@@ -17,7 +17,7 @@ namespace ClientOrders.Services
 			{
 				var responseMessage = await client.PostAsJsonAsync($"Auth/login", new User(login, password));
 
-				TokenKeeper.Current.Token = (await responseMessage.Content.ReadFromJsonAsync<TokenResponse>()).Token;
+				TokenRepository.Current.Token = (await responseMessage.Content.ReadFromJsonAsync<TokenResponse>()).Token;
 
                 return true;
 			}

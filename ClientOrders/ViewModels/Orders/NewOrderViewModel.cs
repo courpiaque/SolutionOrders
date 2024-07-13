@@ -12,9 +12,9 @@ namespace ClientOrders.ViewModels.Orders
         }
         #region Fields
         private int id;
-        private DateTime dataOrder = DateTime.Now.Date;
+        private DateTime dataOrder = DateTime.Now;
         private string notes;
-        private DateTime deliveryDate = DateTime.Now.Date;
+        private DateTime deliveryDate = DateTime.Now;
         private Client selectedClient;
         private Worker selectedWorker;
         private List<Client> clients;
@@ -77,7 +77,10 @@ namespace ClientOrders.ViewModels.Orders
                 Id = Id,
                 IdClient = selectedClient.Id,
                 IdWorker = selectedWorker.Id,
-            }.CopyProperties(this);
+                DataOrder = DataOrder,
+                DeliveryDate = DeliveryDate,
+                Notes = Notes,
+            };
 
         public override bool ValidateSave()
         {

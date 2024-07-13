@@ -5,8 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:ClientOrders.Views.Abstract"
     xmlns:vm="clr-namespace:ClientOrders.ViewModels.Orders"
-    x:DataType="vm:NewOrderViewModel"
-    Title="Add Order">
+    Title="Add Order"
+    x:DataType="vm:NewOrderViewModel">
     <ContentPage.Content>
         <StackLayout>
             <Frame>
@@ -24,7 +24,7 @@
                         FontSize="Medium"
                         ItemDisplayBinding="{Binding Name}"
                         ItemsSource="{Binding Clients}"
-                        SelectedItem="{Binding SelectedClient}" />
+                        SelectedItem="{Binding SelectedClient, Mode=TwoWay}" />
 
                     <Picker
                         Title="Select worker"
@@ -32,7 +32,7 @@
                         FontSize="Medium"
                         ItemDisplayBinding="{Binding LastName}"
                         ItemsSource="{Binding Workers}"
-                        SelectedItem="{Binding SelectedWorker}" />
+                        SelectedItem="{Binding SelectedWorker, Mode=TwoWay}" />
 
                     <Label FontSize="Medium" Text="Notes" />
                     <Entry FontSize="Medium" Text="{Binding Notes, Mode=TwoWay}" />
