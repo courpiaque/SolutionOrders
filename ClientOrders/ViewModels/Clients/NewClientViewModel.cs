@@ -40,7 +40,11 @@ namespace ClientOrders.ViewModels.Clients
             set => SetProperty(ref phoneNumber, value);
         }
         #endregion
-        public override bool ValidateSave() => !string.IsNullOrWhiteSpace(Name);
+        public override bool ValidateSave() =>
+               !string.IsNullOrWhiteSpace(Name)
+            && !string.IsNullOrWhiteSpace(Address)
+            && !string.IsNullOrWhiteSpace(PhoneNumber);
+
         public override Client SetItem() 
         {
             return new Client()

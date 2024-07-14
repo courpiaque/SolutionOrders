@@ -6,6 +6,7 @@ using RestApiOrders.Helpers;
 using RestApiOrders.Model.Context;
 using System.Text;
 
+// Create database as SqlServer
 var builder = WebApplication.CreateBuilder(args); 
 builder.Services.AddDbContext<CompanyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CompanyContext")
@@ -16,6 +17,8 @@ builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+// Options for swagger 'Authorize' option
 builder.Services.AddSwaggerGen(options =>
 {
 	options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -43,9 +46,9 @@ builder.Services.AddSwaggerGen(options =>
 	});
 });
 
+// Get JwtSetting from appsettings.json
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 builder.Services.AddSingleton(jwtSettings);
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 	.AddJwtBearer(options =>
 	{

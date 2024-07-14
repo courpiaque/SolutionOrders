@@ -7,6 +7,7 @@ namespace ClientOrders.ViewModels.Abstract
     {
         public abstract void OnAppearing();
 
+        // Do zmiany wartości pól na layoucie
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName] string propertyName = "",
             Action onChanged = null)
@@ -20,6 +21,7 @@ namespace ClientOrders.ViewModels.Abstract
             return true;
         }
 
+        // Do reagowania na zmiany pól na layoutcie - za każdym razem jak coś wpisujesz to sprawdza, czy już możesz zapisać.
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")

@@ -21,5 +21,12 @@
       <SubType>Designer</SubType>
     </MauiXaml>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <MauiXaml Update="Views\Orders\AddOrderItemPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Views\Orders\OrderItemsPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+  </ItemGroup>
 </Project>

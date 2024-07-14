@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ClientOrders.Models.Abstract;
+﻿using ClientOrders.Models.Abstract;
 
 namespace ClientOrders.Services.Abstract
 {
@@ -39,6 +37,14 @@ namespace ClientOrders.Services.Abstract
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        Task<IEnumerable<T>> GetItemsAsync<T>(bool forceRefresh = false) where T : IEntity;
-    }
+        Task<IEnumerable<T>> GetItemsAsync<T>() where T : IEntity;
+
+		Task<IEnumerable<TItem>> GetRelatedItemsAsync<TEntity, TItem>(int entityId)
+			where TEntity : IEntity
+            where TItem : IEntity;
+
+		Task<bool> AddRelatedItemAsync<TEntity, TItem>(int entityId, TItem item)
+			where TEntity : IEntity
+			where TItem : IEntity;
+	}
 }

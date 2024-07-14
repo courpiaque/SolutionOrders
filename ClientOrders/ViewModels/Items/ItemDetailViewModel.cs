@@ -74,6 +74,10 @@ namespace ClientOrders.ViewModels.Items
             try
             {
                 var item = await CrudService.GetItemAsync<Item>(id);
+
+				if (item == null)
+					return;
+
                 Id = item.Id;
                 Name = item.Name;
                 Description = item.Description;
@@ -90,9 +94,6 @@ namespace ClientOrders.ViewModels.Items
             }
         }
 
-        protected override Task GoToUpdatePage()
-        {
-            throw new NotImplementedException();
-        }
+        protected override Task GoToUpdatePage() { return Task.CompletedTask; }
     }
 }

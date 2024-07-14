@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="ClientOrders.Views.Orders.AddOrderItemPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:ClientOrders.Views.Abstract"
+    xmlns:vm="clr-namespace:ClientOrders.ViewModels.Orders"
+    Title="Add Order"
+    x:DataType="vm:AddOrderItemViewModel">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame>
+                <StackLayout Style="{x:StaticResource FormStack}">
+
+                    <Label FontSize="Medium" Text="Identifier" />
+                    <Entry FontSize="Medium" Text="{Binding Identifier, Mode=TwoWay}" />
+
+                    <Picker
+                        Title="Select Item"
+                        Margin="0"
+                        FontSize="Medium"
+                        ItemDisplayBinding="{Binding Name}"
+                        ItemsSource="{Binding Items}"
+                        SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
+
+                    <Label FontSize="Medium" Text="Quantity" />
+                    <Entry FontSize="Medium" Text="{Binding Quantity, Mode=TwoWay}" />
+
+                    <StackLayout Style="{x:StaticResource SaveStack}">
+                        <Button
+                            Command="{Binding SaveCommand}"
+                            HorizontalOptions="Center"
+                            Text="Save" />
+                    </StackLayout>
+
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</base:BaseContentPage>

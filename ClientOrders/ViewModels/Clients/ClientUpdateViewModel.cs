@@ -57,8 +57,8 @@ namespace ClientOrders.ViewModels.Clients
             }
         }
 
-        public override Models.Client SetItem()
-            => new Models.Client()
+        public override Client SetItem()
+            => new Client()
             {
                 Id = ItemId
             }.CopyProperties(this);

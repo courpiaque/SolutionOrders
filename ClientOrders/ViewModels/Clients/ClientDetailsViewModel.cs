@@ -1,11 +1,12 @@
 ﻿using System.Diagnostics;
+using ClientOrders.Models;
 using ClientOrders.Services.Abstract;
 using ClientOrders.ViewModels.Abstract;
 using ClientOrders.Views.Clients;
 
 namespace ClientOrders.ViewModels.Clients
 {
-    public class ClientDetailsViewModel : BaseItemDetailsViewModel<Models.Client>
+    public class ClientDetailsViewModel : BaseItemDetailsViewModel<Client>
     {
         public ClientDetailsViewModel(ICrudService crudService) : base(crudService)
         {
@@ -17,6 +18,7 @@ namespace ClientOrders.ViewModels.Clients
         private string address;
         private string phoneNumber;
         #endregion
+
         #region Properties
         public int Id
         {
@@ -44,9 +46,10 @@ namespace ClientOrders.ViewModels.Clients
         {
             try
             {
-                var item = await CrudService.GetItemAsync<Models.Client>(id);
+                var item = await CrudService.GetItemAsync<Client>(id);
                 if (item == null)
                     return;
+
                 Id = id;
                 Address = item.Address;
                 PhoneNumber = item.PhoneNumber;
@@ -59,6 +62,8 @@ namespace ClientOrders.ViewModels.Clients
         }
 
         protected override async Task GoToUpdatePage()
-            => await Shell.Current.GoToAsync($"{nameof(ClientUpdatePage)}?{nameof(ItemId)}={ItemId}");
+        {
+			await Shell.Current.GoToAsync($"{nameof(ClientUpdatePage)}?{nameof(ItemId)}={ItemId}");
+		}
     }
 }

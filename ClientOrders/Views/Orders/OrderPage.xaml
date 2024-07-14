@@ -15,7 +15,8 @@
         x:Name="ItemsListView"
         HasUnevenRows="True"
         ItemsSource="{Binding Items}"
-        SelectionMode="None">
+        SelectedItem="{x:Binding SelectedItem,
+                                 Mode=TwoWay}">
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="models:Order">
                 <ViewCell>

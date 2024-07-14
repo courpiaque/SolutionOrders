@@ -6,7 +6,7 @@ namespace ClientOrders.Services
 {
     public class LookupService : BaseHttpService, ILookupService
     {
-        public virtual async Task<IEnumerable<T>> GetLookupsAsync<T>(bool forceRefresh = false) where T : ILookup
+        public virtual async Task<IEnumerable<T>> GetLookupsAsync<T>() where T : ILookup
         {
             using var client = CreateHttpClient();
 

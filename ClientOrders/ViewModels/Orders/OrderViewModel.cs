@@ -14,6 +14,8 @@ namespace ClientOrders.ViewModels.Orders
         public override async Task GoToAddPage()
             => await Shell.Current.GoToAsync(nameof(NewOrderPage));
 
-        public override Task GoToDetailsPage(Order item) => Task.CompletedTask;
-    }
+        public override async Task GoToDetailsPage(Order item) 
+            => await Shell.Current.GoToAsync($"{nameof(OrderItemsPage)}?{nameof(OrderItemsViewModel.ItemId)}={item.Id}");
+
+	}
 }

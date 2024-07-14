@@ -82,7 +82,7 @@ namespace ClientOrders.Services.Abstract
 			}
 		}
 
-        public virtual async Task<IEnumerable<T>> GetItemsAsync<T>(bool forceRefresh = false) where T : IEntity
+        public virtual async Task<IEnumerable<T>> GetItemsAsync<T>() where T : IEntity
         {
             using var client = CreateHttpClient();
 
@@ -97,6 +97,46 @@ namespace ClientOrders.Services.Abstract
 				await App.Current.MainPage.DisplayAlert("Error", ex.Message, "Cancel");
 
 				return new List<T>();
+			}
+		}
+
+		public virtual async Task<IEnumerable<TItem>> GetRelatedItemsAsync<TEntity, TItem>(int id) 
+			where TEntity : IEntity 
+			where TItem : IEntity
+		{
+			using var client = CreateHttpClient();
+
+			try
+			{
+				var entities = await client.GetFromJsonAsync<IEnumerable<TItem>>($"{typeof(TEntity).Name}/{id}/{typeof(TItem).Name}");
+
+				return entities;
+			}
+			catch (Exception ex)
+			{
+				await App.Current.MainPage.DisplayAlert("Error", ex.Message, "Cancel");
+
+				return new List<TItem>();
+			}
+		}
+
+		public async Task<bool> AddRelatedItemAsync<TEntity, TItem>(int entityId, TItem item)
+			where TEntity : IEntity
+			where TItem : IEntity
+		{
+			using var client = CreateHttpClient();
+
+			try
+			{
+				await client.PostAsJsonAsync($"{typeof(TEntity).Name}/{entityId}/{typeof(TItem).Name}", item);
+
+				return true;
+			}
+			catch (Exception ex)
+			{
+				await App.Current.MainPage.DisplayAlert("Error", ex.Message, "Cancel");
+
+				return false;
 			}
 		}
 	}

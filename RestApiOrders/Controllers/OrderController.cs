@@ -52,23 +52,25 @@ namespace RestApiOrders.Controllers
             return (OrderDto)order;
         }
 
-		// GET: api/Orders/Items/5
-		[HttpGet("{id}/Items")]
-		public async Task<ActionResult<IEnumerable<OrderItemDto>>> GetOrderItems(int id)
-		{
-			if (_context.Orders == null)
-            { 
-				return NotFound();
-			}
-			return (await _context.OrderItems.ToListAsync())
-                .Where(ord => ord.IdOrder == id)
-				.Select(ord => (OrderItemDto)ord)
-				.ToList();
-		}
+        // GET: api/Orders/Items/5
+        [HttpGet("{id}/OrderItem")]
+        public async Task<ActionResult<IEnumerable<OrderItemDto>>> GetOrderItems(int id)
+        {
+            if (_context.Orders == null)
+            {
+                return NotFound();
+            }
+            return (await _context.OrderItems
+                .Include(x => x.IdItemNavigation)
+				.Where(ord => ord.IdOrder == id)
+				.ToListAsync())
+                .Select(ord => (OrderItemDto)ord)
+                .ToList();
+        }
 
-		// PUT: api/Orders/5
-		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-		[HttpPut("{id}")]
+        // PUT: api/Orders/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder(int id, OrderDto order)
         {
             if (id != order.IdOrder)
@@ -129,8 +131,41 @@ namespace RestApiOrders.Controllers
             return Ok(order);
         }
 
-        // DELETE: api/Orders/5
-        [HttpDelete("{id}")]
+        // POST: api/Order
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("{id}/OrderITem")]
+		public async Task<ActionResult<OrderItemDto>> PostOrderItem(int id, OrderItemDto order)
+		{
+			if (_context.Orders == null)
+			{
+				return Problem("Entity set 'CompanyContext.Orders'  is null.");
+			}
+
+            order.IdOrder = id;
+            
+			_context.OrderItems.Add(order);
+
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateException)
+			{
+				if (OrderExists(order.IdOrderItem))
+				{
+					return Conflict();
+				}
+				else
+				{
+					throw;
+				}
+			}
+
+			return Ok(order);
+		}
+
+		// DELETE: api/Orders/5
+		[HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
         {
             if (_context.Orders == null)
@@ -153,5 +188,10 @@ namespace RestApiOrders.Controllers
         {
             return (_context.Orders?.Any(e => e.IdOrder == id)).GetValueOrDefault();
         }
-    }
+		private bool OrderItemExists(int id)
+		{
+			return (_context.OrderItems?.Any(e => e.IdOrderItem == id)).GetValueOrDefault();
+		}
+
+	}
 }

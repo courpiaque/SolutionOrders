@@ -28,9 +28,13 @@ namespace RestApiOrders.Controllers
             {
                 return NotFound();
             }
-            return (await _context.Items.ToListAsync())
-                    .Select(it=>(ItemDto)it)
-                    .ToList();
+
+            return (await _context.Items
+                .Include(x => x.IdCategoryNavigation)
+                .Include(x => x.IdUnitOfMeasurementNavigation)
+                .ToListAsync())
+                .Select(it=>(ItemDto)it)
+                .ToList();
         }
 
         // GET: api/Item/5
@@ -41,7 +45,10 @@ namespace RestApiOrders.Controllers
             {
                 return NotFound();
             }
-            var item = await _context.Items.FindAsync(id);
+            var item = await _context.Items
+                .Include(x => x.IdCategoryNavigation)
+                .Include(x => x.IdUnitOfMeasurementNavigation)
+                .FirstOrDefaultAsync(x => x.IdItem == id);
 
             if (item == null)
             {

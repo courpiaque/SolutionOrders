@@ -4,14 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:ClientOrders.Views.Abstract"
-    xmlns:vm="clr-namespace:ClientOrders.ViewModels.Workers"
     xmlns:models="clr-namespace:ClientOrders.Models"
-    x:DataType="vm:WorkersViewModel"
-    Title="Workers">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding AddItemCommand}" Text="Add" />
-    </ContentPage.ToolbarItems>
-    <ListView ItemsSource="{Binding Items}" SelectedItem="{x:Binding SelectedItem, Mode=TwoWay}">
+    xmlns:vm="clr-namespace:ClientOrders.ViewModels.Workers"
+    Title="Workers"
+    x:DataType="vm:WorkersViewModel">
+    <ListView
+        ItemsSource="{Binding Items}"
+        SelectedItem="{x:Binding SelectedItem,
+                                 Mode=TwoWay}"
+        SelectionMode="None">
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="models:Worker">
                 <TextCell Detail="{Binding FirstName}" Text="{Binding LastName}" />

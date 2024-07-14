@@ -70,11 +70,11 @@ namespace ClientOrders
 			// Orders
 			builder.Services.AddTransient<OrderViewModel>();
 			builder.Services.AddTransient<NewOrderViewModel>();
+			builder.Services.AddTransient<OrderItemsViewModel>();
+			builder.Services.AddTransient<AddOrderItemViewModel>();
 
 			// Workers
-			builder.Services.AddTransient<WorkerDetailViewModel>();
 			builder.Services.AddTransient<WorkersViewModel>();
-			builder.Services.AddTransient<NewWorkerViewModel>();
 
 			return builder;
 		}
@@ -101,10 +101,12 @@ namespace ClientOrders
 			// Orders
 			builder.Services.AddSingleton<OrderPage>();
 			builder.Services.AddTransient<NewOrderPage>();
+			builder.Services.AddTransient<OrderItemsPage>();
+			builder.Services.AddTransient<AddOrderItemPage>();
 
 			// Workers
 			builder.Services.AddSingleton<WorkersPage>();
-			builder.Services.AddTransient<NewWorkerPage>();
+
 
 			return builder;
 		}

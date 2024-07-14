@@ -13,7 +13,7 @@
             <StackLayout>
                 <Frame>
                     <StackLayout Style="{x:StaticResource FormStack}">
-                    
+
                         <Label FontSize="Medium" Text="Identifier" />
                         <Entry FontSize="Medium" Text="{Binding Id, Mode=TwoWay}" />
 
@@ -47,11 +47,12 @@
                             FontSize="Medium"
                             ItemsSource="{x:Static constant:Constants.Photos}"
                             SelectedItem="{Binding SelectedPhoto}" />
+
                         <Image
                             HeightRequest="50"
                             Source="{x:Binding SelectedPhoto}"
                             WidthRequest="50" />
-                            
+
                         <Picker
                             Title="Unit of measurement"
                             Margin="0"

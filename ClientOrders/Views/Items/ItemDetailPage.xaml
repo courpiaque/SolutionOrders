@@ -2,37 +2,37 @@
 <base:BaseContentPage
     x:Class="ClientOrders.Views.Items.ItemDetailPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:base="clr-namespace:ClientOrders.Views.Abstract"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:ClientOrders.Views.Abstract"
     xmlns:vm="clr-namespace:ClientOrders.ViewModels.Items"
-    x:DataType="vm:ItemDetailViewModel"
-    Title="Item details">
+    Title="Item details"
+    x:DataType="vm:ItemDetailViewModel">
     <StackLayout Style="{x:StaticResource FormStack}">
 
-        <Label FontSize="Medium" Text="Identifier" />
+        <Label FontSize="Small" Text="Identifier" />
         <Label FontSize="Medium" Text="{Binding Id}" />
 
-        <Label FontSize="Medium" Text="Name" />
+        <Label FontSize="Small" Text="Name" />
         <Label FontSize="Medium" Text="{Binding Name}" />
 
-        <Label FontSize="Medium" Text="Description" />
+        <Label FontSize="Small" Text="Description" />
         <Label FontSize="Medium" Text="{Binding Description}" />
 
-        <Label FontSize="Medium" Text="Category" />
+        <Label FontSize="Small" Text="Category" />
         <Label FontSize="Medium" Text="{x:Binding SelectedCategory}" />
 
-        <Label FontSize="Medium" Text="Price" />
+        <Label FontSize="Small" Text="Price" />
         <Label FontSize="Medium" Text="{Binding Price}" />
 
-        <Label FontSize="Medium" Text="Quantity" />
+        <Label FontSize="Small" Text="Quantity" />
         <Label FontSize="Medium" Text="{Binding Quantity}" />
 
         <Image HeightRequest="100" Source="{x:Binding SelectedPhoto}" />
-        
-        <Label FontSize="Medium" Text="Unit of measurement" />
+
+        <Label FontSize="Small" Text="Unit of measurement" />
         <Label FontSize="Medium" Text="{Binding SelectedUnitOfMeasurement}" />
 
-        <Label FontSize="Medium" Text="Code" />
+        <Label FontSize="Small" Text="Code" />
         <Label FontSize="Medium" Text="{Binding Code}" />
 
     </StackLayout>
