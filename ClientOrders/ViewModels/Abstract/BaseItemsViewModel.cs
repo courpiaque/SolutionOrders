@@ -10,7 +10,6 @@ namespace ClientOrders.ViewModels.Abstract
         #region Fields
 
         protected readonly ICrudService CrudService;
-        private T _selectedItem;
 
         #endregion
         public BaseItemsViewModel(ICrudService crudService)
@@ -21,10 +20,11 @@ namespace ClientOrders.ViewModels.Abstract
 		}
         #region Properties
 
-        public ObservableCollection<T> Items { get; } = new();
-
         public Command AddItemCommand { get; }
 
+        public ObservableCollection<T> Items { get; } = new();
+
+        private T _selectedItem;
         public T SelectedItem
         {
             get => _selectedItem;
@@ -37,10 +37,10 @@ namespace ClientOrders.ViewModels.Abstract
 
 		#endregion
 
-        // klasa implementująca musi określić nawigację do formularza
+        // each class have to define its navigation to adding page
 		public abstract Task GoToAddPage();
 
-        // klasa implementująca musi określić nawigację do detalu
+        // each class have to define its navigation to details page
 		public abstract Task GoToDetailsPage(T item);
 
 		public override async void OnAppearing()

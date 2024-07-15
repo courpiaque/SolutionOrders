@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 
 namespace ClientOrders.Services.Abstract
 {
+	// Service to perform CRUD operations
     public class CrudService : BaseHttpService, ICrudService
     {
         public CrudService()

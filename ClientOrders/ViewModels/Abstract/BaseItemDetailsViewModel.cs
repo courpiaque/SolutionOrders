@@ -6,17 +6,18 @@ namespace ClientOrders.ViewModels.Abstract
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public abstract class BaseItemDetailsViewModel<T> : BaseViewModel where T : IEntity
     {
+        public int ItemId { get; set; }
+
         protected readonly ICrudService CrudService;
+
         public BaseItemDetailsViewModel(ICrudService crudService)
         {
             CrudService = crudService;
 
-            CancelCommand = new Command(OnCancel);
             DeleteCommand = new Command(OnDelete);
-            UpdateCommand = new Command(OnUpdate);
+            UpdateCommand = new Command(async () => await GoToUpdatePage());
         }
-        public int ItemId { get; set; }
-        public Command CancelCommand { get; }
+
         public Command DeleteCommand { get; }
         public Command UpdateCommand { get; }
 
@@ -25,18 +26,16 @@ namespace ClientOrders.ViewModels.Abstract
             await LoadItem(ItemId);
         }
 
-		private async void OnCancel()
-            => await Shell.Current.GoToAsync("..");
+        // each class have to define its loading item method
+        public abstract Task LoadItem(int id);
+
+        // each class have to define its navigation to detail page
+        protected abstract Task GoToUpdatePage();
+
         private async void OnDelete()
         {
             await CrudService.DeleteItemAsync<T>(ItemId);
             await Shell.Current.GoToAsync("..");
         }
-        private async void OnUpdate()
-            => await GoToUpdatePage();
-
-        protected abstract Task GoToUpdatePage();
-
-        public abstract Task LoadItem(int id);
     }
 }

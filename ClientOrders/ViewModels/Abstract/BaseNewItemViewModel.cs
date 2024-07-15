@@ -20,6 +20,13 @@ namespace ClientOrders.ViewModels.Abstract
 
 		public override void OnAppearing() { }
 
+        // each class have to define its saving item validation
+        public abstract bool ValidateSave();
+
+        // each class have to defince its setting for item details
+		public abstract T SetItem();
+
+        // saving can be handled fully generic
 		private async void OnSave()
         {
             var item = SetItem();
@@ -28,9 +35,5 @@ namespace ClientOrders.ViewModels.Abstract
 
             await Shell.Current.GoToAsync("..");
         }
-
-		public abstract bool ValidateSave();
-
-		public abstract T SetItem();
 	}
 }

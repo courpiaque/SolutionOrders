@@ -18,9 +18,13 @@ namespace ClientOrders.Helpers
         {
             targetObject.GetTypeProperties().Where(p => p.CanWrite).ToList()
                 .ForEach(property => FindAndReplaceProperty(targetObject, sourceObject, property));
+                
             return targetObject;
         }
 
+        /// <summary>
+        /// Method which finds and replaces corresponding properties
+        /// </summary>
         private static void FindAndReplaceProperty<T, T2>(T targetObject, T2 sourceObject, PropertyInfo property)
         {
             if (sourceObject.GetTypeProperties().Any(prop => CheckIfPropertyExistInSource(prop, property)))
@@ -28,12 +32,30 @@ namespace ClientOrders.Helpers
                 property.SetValue(targetObject, sourceObject.GetPropertyValue(property.Name), default);
             }
         }
-        private static IEnumerable<PropertyInfo> GetTypeProperties<T2>(this T2 sourceObject)
-            => sourceObject.GetType().GetProperties();
+
+        /// <summary>
+        /// Simple methods to get properties
+        /// </summary>
+        private static IEnumerable<PropertyInfo> GetTypeProperties<T2>(this T2 sourceObject) 
+        {
+            return sourceObject.GetType().GetProperties();
+        }
+
+        /// <summary>
+        /// Methods which checks if given property exists in source as well
+        /// </summary>        
         private static bool CheckIfPropertyExistInSource(PropertyInfo prop, PropertyInfo property)
-            => string.Equals(property.Name, prop.Name, StringComparison.InvariantCultureIgnoreCase)
+        {
+            return string.Equals(property.Name, prop.Name, StringComparison.InvariantCultureIgnoreCase)
                     && prop.PropertyType.Equals(property.PropertyType);
+        }
+
+        /// <summary>
+        /// Methods which gets given property value
+        /// </summary>  
         private static object GetPropertyValue<T>(this T source, string propertyName)
-            => source.GetType().GetProperty(propertyName).GetValue(source, null);
+        {
+            return source.GetType().GetProperty(propertyName).GetValue(source, null);
+        }       
     }
 }

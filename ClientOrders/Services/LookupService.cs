@@ -4,6 +4,7 @@ using System.Net.Http.Json;
 
 namespace ClientOrders.Services
 {
+	// Service to fetch lookups
     public class LookupService : BaseHttpService, ILookupService
     {
         public virtual async Task<IEnumerable<T>> GetLookupsAsync<T>() where T : ILookup

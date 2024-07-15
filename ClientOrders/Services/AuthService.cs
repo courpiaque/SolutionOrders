@@ -4,6 +4,7 @@ using ClientOrders.Services.Abstract;
 
 namespace ClientOrders.Services
 {
+	// Service for authentication
     public class AuthService : BaseHttpService, IAuthService
     {
 		private record User(string Login, string Password);

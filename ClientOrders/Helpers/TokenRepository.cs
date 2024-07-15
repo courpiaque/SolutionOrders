@@ -1,5 +1,6 @@
 ﻿namespace ClientOrders.Helpers;
 
+// Simple singleton class to store token value
 public class TokenRepository
 {
 	private static TokenRepository _instance;

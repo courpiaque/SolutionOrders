@@ -10,28 +10,32 @@ namespace ClientOrders.ViewModels.Abstract
 		where TEntity : IEntity
 		where TItem : IEntity
 	{
-		#region Fields
+		public int ItemId { get; set; }
 
 		protected readonly ICrudService CrudService;
 
-		#endregion
 		public BaseRelatedItemsViewModel(ICrudService crudService)
 		{
 			CrudService = crudService;
 
 			Items = new ObservableCollection<TItem>();
-			LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-			AddItemCommand = new Command(OnAddItem);
+
+			AddItemCommand = new Command(async () => await GoToAddPage());
 		}
-        #region Properties
-        
-		public int ItemId { get; set; }
+
         public ObservableCollection<TItem> Items { get; } = new();
-		public Command LoadItemsCommand { get; }
+
 		public Command AddItemCommand { get; }
 
-		#endregion
-		async Task ExecuteLoadItemsCommand()
+		public override async void OnAppearing()
+		{
+			await LoadItems();
+		}
+
+		// each class have to define its method for navigation to adding page
+		public abstract Task GoToAddPage();
+
+		private async Task LoadItems()
 		{
 			try
 			{
@@ -47,14 +51,5 @@ namespace ClientOrders.ViewModels.Abstract
 				Debug.WriteLine(ex);
 			}
 		}
-		public override void OnAppearing()
-		{
-			_ = ExecuteLoadItemsCommand();
-		}
-
-		private async void OnAddItem(object obj)
-			=> await GoToAddPage();
-
-		public abstract Task GoToAddPage();
 	}
 }
